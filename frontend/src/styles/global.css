@@ -1,0 +1,28 @@
+/* background dashboard */
+body {
+    margin: 0;
+    font-family: Arial, sans-serif;
+    background-color: #f1f5f9;
+  }
+  
+  /* button standard */
+  .btn {
+    background-color: #2563eb;
+    color: white;
+    border: none;
+    padding: 8px 15px;
+    border-radius: 6px;
+    cursor: pointer;
+  }
+  
+  .btn:hover {
+    background-color: #1d4ed8;
+  }
+  
+  /* card dashboard style */
+  .card {
+    background: white;
+    padding: 20px;
+    border-radius: 10px;
+    box-shadow: 0px 4px 10px rgba(0,0,0,0.05);
+  }
