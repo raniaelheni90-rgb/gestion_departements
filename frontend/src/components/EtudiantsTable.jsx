@@ -2,22 +2,23 @@ import React from "react";
 import "./EtudiantsTable.css";
 function EtudiantsTable({ etudiants, onEdit, onDelete }) {
   return (
-     <table className="tableContainer"> 
-      <thead   >
-        <tr>
-          <th>ID</th>
-          <th>CIN</th>
-          <th>Nom</th>
-          <th>Prénom</th>
-          <th>Email</th>
-          <th>numTel</th>
-          <th>dateNaissance</th>
-          <th>adresse</th>
-          <th>dateInscription</th>
-          <th>Actions</th>
-        </tr>
-      </thead>
+<table className="table"> 
+<thead>
 
+<tr>
+<th>🆔ID</th>
+<th>🪪CIN</th>
+<th>👤Nom</th>
+<th>👤Prénom</th>
+<th>📧Email</th>
+<th>📞Téléphone</th>
+<th>🎂Naissance</th>
+<th>🏠Adresse</th>
+<th>📅Inscription</th>
+<th>⚙️Actions</th>
+</tr>
+
+</thead>
       <tbody>
         {etudiants.map((e) => (
           <tr key={e.idEtudiant}>
@@ -32,12 +33,22 @@ function EtudiantsTable({ etudiants, onEdit, onDelete }) {
             <td>{e.dateInscription}</td>
 
             <td>
-              <button className="btn"   onClick={() => onEdit(e)}>Modifier</button>
 
-              <button  className="btn delete"  onClick={() => onDelete(e.idEtudiant)}>
-                Supprimer
-              </button>
-            </td>
+  <span
+    className="icon edit-icon"
+    onClick={() => onEdit(e)}
+  >
+    ✏️
+  </span>
+
+  <span
+    className="icon delete-icon"
+    onClick={() => onDelete(e.idEtudiant)}
+  >
+    🗑️
+  </span>
+
+</td>
           </tr>
         ))}
       </tbody>

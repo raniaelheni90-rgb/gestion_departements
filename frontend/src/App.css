@@ -182,3 +182,27 @@
     border-right-color: var(--border);
   }
 }
+/* LAYOUT GLOBAL */
+
+.app-layout {
+
+  display: flex;
+
+}
+
+
+/* MAIN CONTENT */
+
+.main-content {
+
+  margin-left: 250px; /* نفس largeur sidebar */
+
+  padding: 30px;
+
+  width: 100%;
+
+  min-height: 100vh;
+
+  background: #f8fafc;
+
+}

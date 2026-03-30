@@ -3,6 +3,7 @@ body {
     margin: 0;
     font-family: Arial, sans-serif;
     background-color: #f1f5f9;
+    transition: 0.3s ease;
   }
   
   /* button standard */

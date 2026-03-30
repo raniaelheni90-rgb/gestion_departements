@@ -1,16 +1,125 @@
-.navbar {
+.navbar-top {
 
-    height: 60px;
-  
-    background: white;
-  
-    display: flex;
-  
-    justify-content: space-between;
-  
-    align-items: center;
-  
-    padding: 0 20px;
-  
-    box-shadow: 0px 2px 8px rgba(0,0,0,0.05);
-  }
+  height: 70px;
+
+  background: white;
+
+  border-bottom: 1px solid #e5e7eb;
+
+}
+.dark-btn {
+
+  margin-left: 15px;
+
+  background: transparent;
+
+  border: none;
+
+  font-size: 18px;
+
+  cursor: pointer;
+
+}
+/* BACKGROUND */
+
+.dark-mode {
+
+  background: #0f172a;
+
+}
+
+
+/* TEXT GENERAL */
+
+.dark-mode {
+
+  color: white;
+
+}
+
+
+/* NAVBAR */
+
+.dark-mode .navbar {
+
+  background: #1e293b;
+
+}
+
+
+/* SIDEBAR */
+
+.dark-mode .sidebar {
+
+  background: #020617;
+
+}
+
+
+/* TABLE */
+
+.dark-mode .table {
+
+  background: #1e293b;
+
+}
+
+
+/* TABLE HEADER */
+
+.dark-mode .table thead {
+
+  background: linear-gradient(135deg,#1e40af,#1d4ed8);
+
+}
+
+
+/* TABLE TEXT */
+
+.dark-mode .table td {
+
+  color: white;
+
+}
+
+
+/* TABLE HOVER */
+
+.dark-mode .table tbody tr:hover {
+
+  background: #334155;
+
+}
+
+
+/* INPUTS */
+
+.dark-mode input {
+
+  background: #1e293b;
+
+  color: white;
+
+  border: 1px solid #334155;
+
+}
+
+
+/* SELECT */
+
+.dark-mode select {
+
+  background: #1e293b;
+
+  color: white;
+
+}
+
+
+/* BUTTONS */
+
+.dark-mode .btn {
+
+  background: linear-gradient(135deg,#1e40af,#2563eb);
+
+}

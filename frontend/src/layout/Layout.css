@@ -1,0 +1,36 @@
+/* layout général */
+
+.layout-container {
+
+    display: flex;
+  
+  }
+  
+  
+  /* zone principale à droite de sidebar */
+  
+  .main-area {
+  
+    margin-left: 250px; /* نفس largeur sidebar */
+  
+    width: 100%;
+  
+  }
+  
+  
+  /* contenu page */
+  
+  .page-content {
+  
+    padding: 30px;
+  
+    background: #f8fafc;
+  
+    min-height: calc(100vh - 70px);
+  
+  }
+  .dark-mode .page-content {
+
+    background: #0f172a;
+  
+  }

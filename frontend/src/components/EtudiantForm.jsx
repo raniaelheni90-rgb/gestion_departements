@@ -1,7 +1,8 @@
 import React, { useState, useEffect } from "react";
+import "./EtudiantForm.css";
 
-// form pour l ajout ou modifier
 function EtudiantForm({ selected, onSubmit, onCancel }) {
+
   const [form, setForm] = useState({
     idEtudiant: "",
     cin: "",
@@ -14,45 +15,151 @@ function EtudiantForm({ selected, onSubmit, onCancel }) {
     dateInscription: ""
   });
 
-  // remplir l form
   useEffect(() => {
+
     if (selected) {
-      setForm({
-        idEtudiant: "",
-        cin: "",
-        nom: "",
-        prenom: "",
-        email: "",
-        numTel: "",
-        dateNaissance: "",
-        adresse: "",
-        dateInscription: "",
-        ...selected
-      });
+
+      setForm({ ...selected });
+
     }
+
   }, [selected]);
 
+
   const handleChange = (e) => {
-    setForm({ ...form, [e.target.name]: e.target.value });
+
+    setForm({
+      ...form,
+      [e.target.name]: e.target.value
+    });
+
   };
 
+
+  const handleSubmit = (e) => {
+
+    e.preventDefault();
+
+    onSubmit(form);
+
+  };
+
+
   return (
-    <div style={{ marginTop: "20px" }}>
-      <h3>{selected ? "Modifier Étudiant" : "Ajouter Étudiant"}</h3>
-      {Object.keys(form).map((key) => (
-        <div key={key} style={{ marginBottom: "5px" }}>
+
+    <form className="form-container" onSubmit={handleSubmit}>
+
+      <h2 className="form-title">
+        {selected ? "Modifier Étudiant" : "Nouvel Étudiant"}
+      </h2>
+
+
+      <div className="form-grid">
+
+        <div className="input-group">
+          <label>CIN</label>
           <input
-            name={key}
-            placeholder={key}
-            value={form[key]}
+            name="cin"
+            value={form.cin}
             onChange={handleChange}
           />
         </div>
-      ))}
-      <button onClick={() => onSubmit(form)}>Enregistrer</button>
-      <button onClick={onCancel} style={{ marginLeft: "10px" }}>Annuler</button>
-    </div>
+
+
+        <div className="input-group">
+          <label>Nom</label>
+          <input
+            name="nom"
+            value={form.nom}
+            onChange={handleChange}
+          />
+        </div>
+
+
+        <div className="input-group">
+          <label>Prénom</label>
+          <input
+            name="prenom"
+            value={form.prenom}
+            onChange={handleChange}
+          />
+        </div>
+
+
+        <div className="input-group">
+          <label>Email</label>
+          <input
+            name="email"
+            value={form.email}
+            onChange={handleChange}
+          />
+        </div>
+
+
+        <div className="input-group">
+          <label>Téléphone</label>
+          <input
+            name="numTel"
+            value={form.numTel}
+            onChange={handleChange}
+          />
+        </div>
+
+
+        <div className="input-group">
+          <label>Date naissance</label>
+          <input
+            type="date"
+            name="dateNaissance"
+            value={form.dateNaissance}
+            onChange={handleChange}
+          />
+        </div>
+
+
+        <div className="input-group">
+          <label>Adresse</label>
+          <input
+            name="adresse"
+            value={form.adresse}
+            onChange={handleChange}
+          />
+        </div>
+
+
+        <div className="input-group">
+          <label>Date inscription</label>
+          <input
+            type="date"
+            name="dateInscription"
+            value={form.dateInscription}
+            onChange={handleChange}
+          />
+        </div>
+
+      </div>
+
+
+      <div className="form-buttons">
+
+        <button type="submit" className="btn save-btn">
+          Enregistrer
+        </button>
+
+        <button
+          type="button"
+          className="btn cancel-btn"
+          onClick={onCancel}
+        >
+          Annuler
+        </button>
+
+      </div>
+
+    </form>
+
   );
+
 }
 
 export default EtudiantForm;

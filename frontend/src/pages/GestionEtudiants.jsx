@@ -127,24 +127,46 @@ function GestionEtudiants() {
 
     <Layout>
 
-      <h2>
+      <h2>Gestion des étudiants</h2>
 
-        Gestion des étudiants
+<div className="page-container">
 
-      </h2>
+  <div>
 
-      <button
+    <select className="filter-select">
+      <option>Tous les champs</option>
+      <option>Nom</option>
+      <option>Prénom</option>
+      <option>Email</option>
+    </select>
 
-        onClick={handleImportClick}
+    <input
+      type="text"
+      placeholder="Rechercher..."
+      className="search-input"
+    />
 
-        className="btn"
+  </div>
 
-      >
+  <div>
 
-        Importer fichier
+    <button
+      onClick={handleImportClick}
+      className="btn import-btn"
+    >
+      Importer fichier
+    </button>
 
-      </button>
+    <button
+      className="btn"
+      onClick={() => setShowForm(true)}
+    >
+      Nouvel étudiant
+    </button>
+    
+  </div>
 
+</div>
       <input
 
         type="file"
@@ -156,34 +178,25 @@ function GestionEtudiants() {
         onChange={handleImport}
 
       />
+{
+  showForm && (
 
-      <button
+    <div className="modal-overlay">
 
-        className="btn"
-
-        onClick={() => setShowForm(true)}
-
-      >
-
-        Ajouter Étudiant
-
-      </button>
-
-      {
-
-        showForm &&
+      <div className="modal-content">
 
         <EtudiantForm
-
           selected={selected}
-
           onSubmit={handleAddOrUpdate}
-
           onCancel={() => setShowForm(false)}
-
         />
 
-      }
+      </div>
+
+    </div>
+
+  )
+}
 
       <EtudiantsTable
 

@@ -1,0 +1,158 @@
+/* FORM TITLE */
+
+.form-title {
+
+    text-align: center;
+  
+    margin-bottom: 20px;
+  
+  
+  }
+  body:not(.dark-mode) .form-title {
+
+    color: #111827;
+  
+  }
+  
+  
+  /* GRID LAYOUT */
+  
+  .form-grid {
+  
+    display: grid;
+  
+    grid-template-columns: repeat(2, 1fr);
+  
+    gap: 15px;
+  
+  }
+  
+  
+  /* INPUT GROUP */
+  
+  .input-group {
+  
+    display: flex;
+  
+    flex-direction: column;
+  
+  }
+  
+  
+  /* LABEL */
+  
+  .input-group label {
+  
+    font-size: 14px;
+  
+    margin-bottom: 5px;
+  
+    font-weight: 500;
+  
+  }
+  
+  
+  /* INPUT STYLE */
+  
+  .input-group input {
+  
+    padding: 10px;
+  
+    border-radius: 8px;
+  
+    border: 1px solid #d1d5db;
+  
+    background: white;
+  
+  }
+  
+  
+  /* INPUT FOCUS */
+  
+  .input-group input:focus {
+  
+    border-color: #2563eb;
+  
+    outline: none;
+  
+    box-shadow: 0px 0px 4px rgba(37,99,235,0.4);
+  
+  }
+  
+  
+  /* BUTTONS AREA */
+  
+  .form-buttons {
+  
+    display: flex;
+  
+    justify-content: center;
+  
+    margin-top: 20px;
+  
+  }
+  
+  
+  /* SAVE BUTTON */
+  
+  .save-btn {
+  
+    background: #2563eb;
+  
+    color: white;
+  
+    margin-right: 10px;
+  
+  }
+  
+  
+  /* CANCEL BUTTON */
+  
+  .cancel-btn {
+  
+    background: #ef4444;
+  
+    color: white;
+  
+  }
+  .dark-mode .input-group input {
+
+    background: #1e293b;
+  
+    color: white;
+  
+    border: 1px solid #334155;
+  
+  }
+  .dark-mode .input-group label {
+
+    color: white;
+  
+  }
+  .dark-mode .form-title {
+  
+    color: #60a5fa;
+  
+  }
+  .form-container {
+
+    color: #111827; /* texte général noir */
+  
+  }
+  
+  
+  .input-group input {
+  
+    color: black;
+  
+  }
+  .input-group label {
+
+    color: black;
+  
+  }
+  .input-group input::placeholder {
+
+    color: #9ca3af;
+  
+  }

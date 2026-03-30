@@ -1,0 +1,306 @@
+/* PAGE TITLE */
+
+h2 {
+    text-align: center;
+    font-size: 26px;
+    font-weight: 600;
+    color: #2563eb;
+    margin-bottom: 20px;
+  }
+  
+  
+  /* TOP ACTION BAR */
+  
+  .top-bar {
+
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+  
+    background: white;
+    padding: 15px 20px;
+  
+    border-radius: 12px;
+  
+    box-shadow: 0px 4px 15px rgba(0,0,0,0.08);
+  
+    margin-bottom: 25px;
+  
+  }
+  
+  
+  .top-bar button {
+  
+    margin-left: 8px;
+  
+  }
+  .top-bar div button {
+
+    margin-left: 12px;
+  
+  }
+
+  
+  /* SEARCH INPUT */
+  
+  .search-input {
+  
+    padding: 10px 15px;
+  
+    border-radius: 8px;
+  
+    border: 1px solid #ddd;
+  
+    width: 250px;
+  
+    outline: none;
+  
+    transition: 0.2s;
+  }
+  
+  .search-input:focus {
+  
+    border-color: #3b82f6;
+  
+  }
+  
+  
+  /* SELECT FILTER */
+  
+  .filter-select {
+  
+    padding: 10px;
+  
+    border-radius: 8px;
+  
+    border: 1px solid #ddd;
+  
+  }
+  
+  
+  /* BUTTON STYLE */
+  
+  .btn {
+  
+    background: linear-gradient(135deg, #2563eb, #3b82f6);
+  
+    color: white;
+  
+    border: none;
+  
+    padding: 10px 18px;
+  
+    border-radius: 8px;
+  
+    font-size: 14px;
+  
+    cursor: pointer;
+  
+    transition: 0.3s ease;
+  
+  }
+  
+  .btn:hover {
+  
+    transform: translateY(-2px);
+  
+    background: linear-gradient(135deg, #1d4ed8, #2563eb);
+  
+  }
+  
+  
+  /* IMPORT BUTTON COLOR */
+  
+  .import-btn {
+  
+    background: linear-gradient(135deg, #10b981, #34d399);
+  
+  }
+  
+  .import-btn:hover {
+  
+    background: linear-gradient(135deg, #059669, #10b981);
+  
+  }
+  
+  
+  /* TABLE CARD */
+  
+  .table-card {
+  
+    background: white;
+  
+    border-radius: 14px;
+  
+    padding: 20px;
+  
+    box-shadow: 0px 6px 18px rgba(0,0,0,0.08);
+  
+  }
+  
+  
+  /* TABLE STYLE */
+  
+  table {
+  
+    width: 100%;
+  
+    border-collapse: collapse;
+  
+  }
+  
+  
+  thead {
+  
+    background: #2563eb;
+  
+    color: white;
+  
+  }
+  
+  
+  th {
+  
+    padding: 12px;
+  
+    font-weight: 500;
+  
+    text-align: left;
+  
+  }
+  
+  
+  td {
+    color: #111827;
+    font-weight: 500;
+    padding: 12px;
+    border-bottom: 1px solid #eee;
+  
+  }
+  
+  
+  tr:hover {
+  
+    background: #f9fafb;
+  
+  }
+  
+  
+  /* ACTION BUTTONS */
+  
+  .action-btn {
+  
+    border: none;
+  
+    padding: 6px 10px;
+  
+    margin-right: 5px;
+  
+    border-radius: 6px;
+  
+    cursor: pointer;
+  
+  }
+  
+  
+  .edit-btn {
+  
+    background: #3b82f6;
+  
+    color: white;
+  
+  }
+  
+  
+  .delete-btn {
+  
+    background: #ef4444;
+  
+    color: white;
+  
+  }
+  /* الخلفية السوداء الشفافة */
+
+.modal-overlay {
+
+    position: fixed;
+  
+    top: 0;
+  
+    left: 0;
+  
+    width: 100%;
+  
+    height: 100%;
+  
+    background: rgba(0,0,0,0.4);
+  
+    display: flex;
+  
+    justify-content: center;
+  
+    align-items: center;
+  
+    z-index: 999;
+  
+  }
+  
+  
+  /* نافذة الفورم */
+  
+  .modal-content {
+  
+    background: white;
+  
+    padding: 25px;
+  
+    border-radius: 14px;
+  
+    width: 500px;
+  
+    max-width: 90%;
+  
+    box-shadow: 0px 8px 30px rgba(0,0,0,0.2);
+  
+    animation: modalFade 0.3s ease;
+  
+  }
+  
+  
+  /* animation دخول popup */
+  
+  @keyframes modalFade {
+  
+    from {
+  
+      transform: translateY(-20px);
+  
+      opacity: 0;
+  
+    }
+  
+    to {
+  
+      transform: translateY(0);
+  
+      opacity: 1;
+  
+    }
+  
+  }
+  .dark-mode .modal-content {
+
+    background: #1e293b;
+  
+    color: white;
+  
+  }
+  .page-container {
+
+    max-width: 1100px;
+  
+    margin: auto;
+  
+  }
+  
+  
