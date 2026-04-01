@@ -2,30 +2,35 @@ import Sidebar from "./Sidebar";
 import NavbarTop from "./NavbarTop";
 import "./Layout.css";
 
+/*
+Structure global:
+
+HEADER
+SIDEBAR + MAIN CONTENT
+*/
+
 function Layout({ children }) {
-
   return (
+    <div className="layout">
 
-    <div className="layout-container">
+      {/* HEADER (NAVBAR TOP) */}
+      <NavbarTop />
 
-      <Sidebar />
+      {/* BODY STRUCTURE */}
+      <div className="layout-body">
 
-      <div className="main-area">
+        {/* LEFT SIDEBAR */}
+        <Sidebar />
 
-        <NavbarTop />
-
-        <div className="page-content">
-
+        {/* RIGHT MAIN CONTENT */}
+        <div className="main-content">
           {children}
-
         </div>
 
       </div>
 
     </div>
-
   );
-
 }
 
 export default Layout;

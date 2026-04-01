@@ -1,306 +1,369 @@
-/* PAGE TITLE */
+/* ===============================
+PAGE MAIN CONTAINER
+=============================== */
 
-h2 {
-    text-align: center;
-    font-size: 26px;
-    font-weight: 600;
-    color: #2563eb;
-    margin-bottom: 20px;
-  }
-  
-  
-  /* TOP ACTION BAR */
-  
-  .top-bar {
+.main-container {
 
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-  
-    background: white;
-    padding: 15px 20px;
-  
-    border-radius: 12px;
-  
-    box-shadow: 0px 4px 15px rgba(0,0,0,0.08);
-  
-    margin-bottom: 25px;
-  
-  }
-  
-  
-  .top-bar button {
-  
-    margin-left: 8px;
-  
-  }
-  .top-bar div button {
+  padding: 20px;
 
-    margin-left: 12px;
-  
-  }
+}
 
-  
-  /* SEARCH INPUT */
-  
-  .search-input {
-  
-    padding: 10px 15px;
-  
-    border-radius: 8px;
-  
-    border: 1px solid #ddd;
-  
-    width: 250px;
-  
-    outline: none;
-  
-    transition: 0.2s;
-  }
-  
-  .search-input:focus {
-  
-    border-color: #3b82f6;
-  
-  }
-  
-  
-  /* SELECT FILTER */
-  
-  .filter-select {
-  
-    padding: 10px;
-  
-    border-radius: 8px;
-  
-    border: 1px solid #ddd;
-  
-  }
-  
-  
-  /* BUTTON STYLE */
-  
-  .btn {
-  
-    background: linear-gradient(135deg, #2563eb, #3b82f6);
-  
-    color: white;
-  
-    border: none;
-  
-    padding: 10px 18px;
-  
-    border-radius: 8px;
-  
-    font-size: 14px;
-  
-    cursor: pointer;
-  
-    transition: 0.3s ease;
-  
-  }
-  
-  .btn:hover {
-  
-    transform: translateY(-2px);
-  
-    background: linear-gradient(135deg, #1d4ed8, #2563eb);
-  
-  }
-  
-  
-  /* IMPORT BUTTON COLOR */
-  
-  .import-btn {
-  
-    background: linear-gradient(135deg, #10b981, #34d399);
-  
-  }
-  
-  .import-btn:hover {
-  
-    background: linear-gradient(135deg, #059669, #10b981);
-  
-  }
-  
-  
-  /* TABLE CARD */
-  
-  .table-card {
-  
-    background: white;
-  
-    border-radius: 14px;
-  
-    padding: 20px;
-  
-    box-shadow: 0px 6px 18px rgba(0,0,0,0.08);
-  
-  }
-  
-  
-  /* TABLE STYLE */
-  
-  table {
-  
-    width: 100%;
-  
-    border-collapse: collapse;
-  
-  }
-  
-  
-  thead {
-  
-    background: #2563eb;
-  
-    color: white;
-  
-  }
-  
-  
-  th {
-  
-    padding: 12px;
-  
-    font-weight: 500;
-  
-    text-align: left;
-  
-  }
-  
-  
-  td {
-    color: #111827;
-    font-weight: 500;
-    padding: 12px;
-    border-bottom: 1px solid #eee;
-  
-  }
-  
-  
-  tr:hover {
-  
-    background: #f9fafb;
-  
-  }
-  
-  
-  /* ACTION BUTTONS */
-  
-  .action-btn {
-  
-    border: none;
-  
-    padding: 6px 10px;
-  
-    margin-right: 5px;
-  
-    border-radius: 6px;
-  
-    cursor: pointer;
-  
-  }
-  
-  
-  .edit-btn {
-  
-    background: #3b82f6;
-  
-    color: white;
-  
-  }
-  
-  
-  .delete-btn {
-  
-    background: #ef4444;
-  
-    color: white;
-  
-  }
-  /* الخلفية السوداء الشفافة */
+
+/* ===============================
+PAGE TITLE
+=============================== */
+
+.page-title {
+
+  text-align: center;
+
+  color: #102445;
+
+  margin-bottom: 20px;
+
+  font-size: 27px;
+
+  font-weight: bold;
+
+}
+
+
+/* DARK MODE TITLE */
+
+.dark-mode .page-title {
+
+  color: white;
+
+}
+
+
+/* ===============================
+SUCCESS MESSAGE
+=============================== */
+
+.success-message {
+
+  max-width: 100%;
+
+  margin: 0 auto 15px auto;
+
+  padding: 10px 15px;
+
+  background-color: #16a34a;
+
+  color: white;
+
+  font-weight: 500;
+
+  border-radius: 8px;
+
+  text-align: center;
+
+}
+
+
+/* ===============================
+TOP ACTION BAR
+=============================== */
+
+.page-container {
+
+  display: flex;
+
+  justify-content: space-between;
+
+  align-items: center;
+
+  margin-bottom: 20px;
+
+}
+
+
+/* ===============================
+SEARCH + FILTER AREA
+=============================== */
+
+.search-area {
+
+  display: flex;
+
+  gap: 10px;
+
+}
+
+
+/* SEARCH INPUT */
+.search-area {
+
+  display: flex;
+
+  flex-direction: row; /* يخليهم جنب بعضهم */
+
+  align-items: center;
+
+  gap: 10px;
+
+  flex-wrap: nowrap; /* يمنعهم يطيحوا تحت بعضهم */
+
+}
+
+.search-input {
+
+  width: 250px;
+
+  height: 40px;
+
+  font-size: 15px;
+
+  padding-left: 12px;
+
+  border-radius: 8px;
+
+  border: 1px solid #ddd;
+
+}
+
+
+/* FILTER SELECT */
+
+.filter-select {
+
+  height: 40px;
+  width: 160px;
+  padding: 10px;
+
+  font-size: 15px;
+
+  border-radius: 8px;
+
+  border: 1px solid #ddd;
+
+}
+
+
+/* ===============================
+BUTTON AREA
+=============================== */
+
+.buttons-area {
+
+  display: flex;
+
+  gap: 15px;
+
+}
+
+
+/* GENERAL BUTTON */
+
+.btn {
+
+  background: linear-gradient(135deg, #2563eb, #3b82f6);
+
+  color: white;
+
+  border: none;
+
+  padding: 10px 18px;
+
+  border-radius: 8px;
+
+  font-size: 14px;
+
+  cursor: pointer;
+
+  transition: 0.3s ease;
+
+}
+
+
+.btn:hover {
+
+  transform: translateY(-2px);
+
+  background: linear-gradient(135deg, #1d4ed8, #2563eb);
+
+}
+
+
+/* IMPORT BUTTON */
+
+.import-btn {
+
+  background: linear-gradient(135deg, #10b981, #34d399);
+
+}
+
+
+.import-btn:hover {
+
+  background: linear-gradient(135deg, #059669, #10b981);
+
+}
+
+
+/* ===============================
+TABLE CARD
+=============================== */
+
+.table-card {
+
+  background: white;
+
+  border-radius: 14px;
+
+  padding: 20px;
+
+  box-shadow: 0px 6px 18px rgba(0,0,0,0.08);
+
+}
+
+
+/* ===============================
+ACTION ICONS
+=============================== */
+
+.icon {
+
+  cursor: pointer;
+
+  font-size: 17px;
+
+  margin-right: 10px;
+
+  transition: 0.2s;
+
+}
+
+
+.edit-icon:hover,
+
+.delete-icon:hover {
+
+  transform: scale(1.2);
+
+}
+
+
+/* ===============================
+MODAL POPUP
+=============================== */
 
 .modal-overlay {
 
-    position: fixed;
-  
-    top: 0;
-  
-    left: 0;
-  
-    width: 100%;
-  
-    height: 100%;
-  
-    background: rgba(0,0,0,0.4);
-  
-    display: flex;
-  
-    justify-content: center;
-  
-    align-items: center;
-  
-    z-index: 999;
-  
-  }
-  
-  
-  /* نافذة الفورم */
-  
-  .modal-content {
-  
-    background: white;
-  
-    padding: 25px;
-  
-    border-radius: 14px;
-  
-    width: 500px;
-  
-    max-width: 90%;
-  
-    box-shadow: 0px 8px 30px rgba(0,0,0,0.2);
-  
-    animation: modalFade 0.3s ease;
-  
-  }
-  
-  
-  /* animation دخول popup */
-  
-  @keyframes modalFade {
-  
-    from {
-  
-      transform: translateY(-20px);
-  
-      opacity: 0;
-  
-    }
-  
-    to {
-  
-      transform: translateY(0);
-  
-      opacity: 1;
-  
-    }
-  
-  }
-  .dark-mode .modal-content {
+  position: fixed;
 
-    background: #1e293b;
-  
-    color: white;
-  
-  }
-  .page-container {
+  top: 0;
 
-    max-width: 1100px;
-  
-    margin: auto;
-  
+  left: 0;
+
+  width: 100%;
+
+  height: 100%;
+
+  background: rgba(0,0,0,0.4);
+
+  display: flex;
+
+  justify-content: center;
+
+  align-items: center;
+
+  z-index: 999;
+
+}
+
+
+.modal-content {
+
+  background: white;
+
+  padding: 25px;
+
+  border-radius: 14px;
+
+  width: 500px;
+
+  max-width: 90%;
+
+  box-shadow: 0px 8px 30px rgba(0,0,0,0.2);
+
+  animation: modalFade 0.3s ease;
+
+}
+
+
+@keyframes modalFade {
+
+  from {
+
+    transform: translateY(-20px);
+
+    opacity: 0;
+
   }
-  
-  
+
+  to {
+
+    transform: translateY(0);
+
+    opacity: 1;
+
+  }
+
+}
+
+
+/* ===============================
+DARK MODE INPUTS
+=============================== */
+
+.dark-mode .search-input {
+
+  background: #334155;
+
+  color: white;
+
+  border: 1px solid #475569;
+
+}
+
+
+.dark-mode .filter-select {
+
+  background: #334155;
+
+  color: white;
+
+  border: 1px solid #475569;
+
+}
+
+
+/* DARK MODE TABLE CARD */
+
+.dark-mode .table-card {
+
+  background: #1e293b;
+
+}
+
+
+/* DARK MODE MODAL */
+
+.dark-mode .modal-content {
+
+  background: #1e293b;
+
+  color: white;
+
+}
+
+
+/* DARK MODE SUCCESS MESSAGE */
+
+.dark-mode .success-message {
+
+  background-color: #15803d;
+
+}

@@ -1,125 +1,58 @@
 .navbar-top {
 
-  height: 70px;
+  height: 100px;
+  
+  display: flex;
 
-  background: white;
+  align-items: center;
 
-  border-bottom: 1px solid #e5e7eb;
+  justify-content: center;
+
+  position: relative;
+
+  background: #102445;
+  color: white;
+  border-bottom: 1px solid rgb(24, 26, 107);
 
 }
+
+
+/* TITLE CENTER */
+
+.navbar-title {
+
+  font-size: 22px;
+  font-weight: bold;
+
+}
+
+
+/* RIGHT SIDE (admin + dark mode) */
+
 .dark-btn {
 
-  margin-left: 15px;
+  position: absolute;
 
-  background: transparent;
+  right: 15px;
 
-  border: none;
+  display: flex;
 
+  gap: 20px;
+
+  align-items: center;
+
+}
+.user {
+
+  position: absolute;
   font-size: 18px;
+  font-weight: bold;
+  right: 70px;
 
-  cursor: pointer;
+  display: flex;
 
-}
-/* BACKGROUND */
+  gap: 20px;
 
-.dark-mode {
-
-  background: #0f172a;
-
-}
-
-
-/* TEXT GENERAL */
-
-.dark-mode {
-
-  color: white;
-
-}
-
-
-/* NAVBAR */
-
-.dark-mode .navbar {
-
-  background: #1e293b;
-
-}
-
-
-/* SIDEBAR */
-
-.dark-mode .sidebar {
-
-  background: #020617;
-
-}
-
-
-/* TABLE */
-
-.dark-mode .table {
-
-  background: #1e293b;
-
-}
-
-
-/* TABLE HEADER */
-
-.dark-mode .table thead {
-
-  background: linear-gradient(135deg,#1e40af,#1d4ed8);
-
-}
-
-
-/* TABLE TEXT */
-
-.dark-mode .table td {
-
-  color: white;
-
-}
-
-
-/* TABLE HOVER */
-
-.dark-mode .table tbody tr:hover {
-
-  background: #334155;
-
-}
-
-
-/* INPUTS */
-
-.dark-mode input {
-
-  background: #1e293b;
-
-  color: white;
-
-  border: 1px solid #334155;
-
-}
-
-
-/* SELECT */
-
-.dark-mode select {
-
-  background: #1e293b;
-
-  color: white;
-
-}
-
-
-/* BUTTONS */
-
-.dark-mode .btn {
-
-  background: linear-gradient(135deg,#1e40af,#2563eb);
+  align-items: center;
 
 }

@@ -27,28 +27,41 @@ const toggleDarkMode = () => {
   setDarkMode(isDark);
 
 };
-  return (
+return (
 
-    <div className="navbar">
+  <div className="navbar-top">
 
-      <h3>Dashboard Administrateur</h3>
+    {/* titre page */}
 
-      <div className="user">
+    <h3 className="navbar-title">
+
+      Dashboard Administrateur
+
+    </h3>
+
+
+    {/* right section */}
+
+    <div className="navbar-actions">
+
+      <span className="user">
 
         admin
 
-      </div>
-      
+      </span>
+
       <button
-  className="dark-btn"
-  onClick={toggleDarkMode}
->
-  {darkMode ? "☀️ Light" : "🌙 Dark"}
-</button>
+        className="dark-btn"
+        onClick={toggleDarkMode}
+      >
+        {darkMode ? "☀️" : "🌙"}
+      </button>
 
     </div>
 
-  );
+  </div>
+
+);
 
 }
 

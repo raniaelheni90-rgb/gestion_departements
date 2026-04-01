@@ -1,67 +1,50 @@
+/*
+SIDEBAR LEFT PANEL
+*/
+
 .sidebar {
-
-  width: 250px;
-
-  height: 100vh;
-
-  position: fixed; /* تثبيت sidebar */
-
-  top: 0;
-
-  left: 0;
-
-  background: linear-gradient(
-    180deg,
-    #1e3a8a,
-    #2563eb
-  );
-
+  width: 240px;
+  background: #1e293b;
   color: white;
 
-  padding: 20px;
-
-  display: flex;
-
-  flex-direction: column;
-
-  transition: 0.3s ease;
-
+  padding-top: 20px;
 }
-.sidebar * {
 
-  transition: 0.3s ease;
 
-}
-  
+/*
+LOGO STYLE
+*/
+
 .logo {
-
   text-align: center;
-
   margin-bottom: 40px;
 
   font-size: 22px;
-
   font-weight: bold;
-
-  letter-spacing: 1px;
-
 }
-.sidebar ul {
 
+
+/*
+MENU STYLE
+*/
+
+.sidebar ul {
   list-style: none;
 
   padding: 0;
 
   display: flex;
-
   flex-direction: column;
 
   gap: 10px;
-
 }
-  
-.sidebar li {
 
+
+/*
+MENU ITEMS
+*/
+
+.sidebar li {
   padding: 12px 15px;
 
   border-radius: 8px;
@@ -69,35 +52,83 @@
   cursor: pointer;
 
   display: flex;
-
   align-items: center;
 
   gap: 10px;
 
   transition: 0.3s ease;
-
 }
-  
-.sidebar li:hover {
 
+
+/*
+HOVER EFFECT
+*/
+
+.sidebar li:hover {
   background: rgba(255,255,255,0.2);
 
-  transform: translateX(5px);
-
+  transform: translateX(6px);
 }
-.sidebar li.active {
 
+
+/*
+ACTIVE PAGE
+*/
+
+.sidebar li.active {
   background: rgba(255,255,255,0.3);
 
   font-weight: bold;
-
 }
-.dark-mode .sidebar {
 
+
+/*
+ICONS SIZE
+*/
+
+.sidebar svg {
+  font-size: 18px;
+}
+.sidebar a {
+
+  display: flex;
+  
+  align-items: center;
+  
+  gap: 10px;
+  
+  color: white;
+  
+  text-decoration: none;
+  
+  padding: 10px;
+  
+  border-radius: 6px;
+  
+  transition: 0.2s;
+  
+  }
+  
+  .sidebar a:hover {
+  
+  background: #334155;
+  
+  }
+  
+  .active-link {
+  
+  background: #2563eb;
+  
+  }
+
+/*
+DARK MODE
+*/
+
+.dark-mode .sidebar {
   background: linear-gradient(
     180deg,
-    #0f172a,
+    #000000f8,
     #1e293b
   );
-
 }

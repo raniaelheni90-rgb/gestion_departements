@@ -1,36 +1,54 @@
-/* layout général */
+/*
+GLOBAL PAGE STRUCTURE
+NAVBAR TOP
+SIDEBAR LEFT
+MAIN CONTENT RIGHT
+*/
 
-.layout-container {
+.layout {
+  display: flex;
+  flex-direction: column;
+  height: 100vh;
+}
 
-    display: flex;
-  
-  }
-  
-  
-  /* zone principale à droite de sidebar */
-  
-  .main-area {
-  
-    margin-left: 250px; /* نفس largeur sidebar */
-  
-    width: 100%;
-  
-  }
-  
-  
-  /* contenu page */
-  
-  .page-content {
-  
-    padding: 30px;
-  
-    background: #f8fafc;
-  
-    min-height: calc(100vh - 70px);
-  
-  }
-  .dark-mode .page-content {
 
-    background: #0f172a;
-  
-  }
+
+
+
+/*
+BODY STRUCTURE
+SIDEBAR + MAIN CONTENT
+*/
+
+.layout-body {
+  display: flex;
+  flex: 1;
+}
+
+
+/*
+SIDEBAR LEFT
+*/
+
+.sidebar {
+  width: 240px;
+  background: #102445;
+  color: white;
+
+  min-height: calc(100vh - 70px);
+}
+
+
+/*
+MAIN CONTENT RIGHT
+*/
+
+.main-content {
+  flex: 1;
+
+  padding: 30px;
+
+  background: #ffffff;
+
+  overflow-y: auto;
+}

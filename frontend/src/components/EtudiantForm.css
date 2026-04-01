@@ -156,3 +156,21 @@
     color: #9ca3af;
   
   }
+  .success-message {
+    text-align: center;
+    margin-bottom: 15px;
+    padding: 10px;
+    background-color: #16a34a; /* vert */
+    color: white;
+    border-radius: 8px;
+    font-weight: 500;
+    animation: fadeInOut 3s forwards;
+  }
+  
+  /* animation fade pour faire disparaître doucement */
+  @keyframes fadeInOut {
+    0% { opacity: 0; }
+    10% { opacity: 1; }
+    90% { opacity: 1; }
+    100% { opacity: 0; }
+  }

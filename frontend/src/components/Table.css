@@ -28,7 +28,7 @@
   .table td {
   
     padding: 12px;
-    font-size: 14px;
+    font-size: 16px;
     text-align: left;
     color: #111827;
     font-weight: 500;
@@ -79,3 +79,16 @@
     transform: scale(1.2);
   
   }
+  .dark-mode .table td {
+
+    color: white;
+  
+  }
+  
+  
+  /* ROW HOVER DARK MODE */
+  
+  .dark-mode .table tbody tr:hover {
+  
+    background: #334155;
+  }  

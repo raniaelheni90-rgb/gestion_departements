@@ -1,5 +1,5 @@
 import React from "react";
-import "./EtudiantsTable.css";
+import "./Table.css";
 function EtudiantsTable({ etudiants, onEdit, onDelete }) {
   return (
 <table className="table"> 
