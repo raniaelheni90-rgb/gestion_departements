@@ -8,6 +8,8 @@ function EtudiantsTable({ etudiants, onEdit, onDelete }) {
 <tr>
 <th>🆔ID</th>
 <th>🪪CIN</th>
+<th>🛂 Passport</th>
+<th>🌍 Nationalité</th>
 <th>👤Nom</th>
 <th>👤Prénom</th>
 <th>📧Email</th>
@@ -23,6 +25,8 @@ function EtudiantsTable({ etudiants, onEdit, onDelete }) {
         {etudiants.map((e) => (
           <tr key={e.idEtudiant}>
             <td>{e.idEtudiant}</td>
+            <td>{e.passport}</td>
+            <td>{e.nationalite}</td>
             <td>{e.cin}</td>
             <td>{e.nom}</td>
             <td>{e.prenom}</td>

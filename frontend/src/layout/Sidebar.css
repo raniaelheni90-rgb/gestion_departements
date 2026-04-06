@@ -3,13 +3,12 @@ SIDEBAR LEFT PANEL
 */
 
 .sidebar {
-  width: 240px;
-  background: #1e293b;
+  width: 280px;
+  background: linear-gradient(135deg, #1a202c 0%, #2d3748 100%);
   color: white;
-
-  padding-top: 20px;
+  padding: 24px 20px;
+  box-shadow: 2px 0 20px rgba(0, 0, 0, 0.1);
 }
-
 
 /*
 LOGO STYLE
@@ -18,11 +17,12 @@ LOGO STYLE
 .logo {
   text-align: center;
   margin-bottom: 40px;
-
-  font-size: 22px;
-  font-weight: bold;
+  font-size: 24px;
+  font-weight: 700;
+  letter-spacing: 1px;
+  text-shadow: 0 2px 4px rgba(0, 0, 0, 0.3), 0 0 10px rgba(255, 255, 255, 0.5);
+  color: #ffffff; /* White color for logo */
 }
-
 
 /*
 MENU STYLE
@@ -30,74 +30,106 @@ MENU STYLE
 
 .sidebar ul {
   list-style: none;
-
   padding: 0;
-
   display: flex;
   flex-direction: column;
-
-  gap: 10px;
+  gap: 8px;
 }
-
 
 /*
 MENU ITEMS
 */
 
 .sidebar li {
-  padding: 12px 15px;
-
-  border-radius: 8px;
-
+  padding: 14px 16px;
+  border-radius: 12px;
   cursor: pointer;
-
   display: flex;
   align-items: center;
-
-  gap: 10px;
-
-  transition: 0.3s ease;
+  gap: 12px;
+  transition: all 0.3s ease;
+  position: relative;
+  overflow: hidden;
 }
 
+.sidebar li::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: -100%;
+  width: 100%;
+  height: 100%;
+  background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.2), transparent);
+  transition: left 0.5s;
+}
+
+.sidebar li:hover::before {
+  left: 100%;
+}
 
 /*
 HOVER EFFECT
 */
 
 .sidebar li:hover {
-  background: rgba(255,255,255,0.2);
-
-  transform: translateX(6px);
+  background: rgba(255, 255, 255, 0.1);
+  transform: translateX(8px);
+  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
 }
-
 
 /*
 ACTIVE PAGE
 */
 
 .sidebar li.active {
-  background: rgba(255,255,255,0.3);
-
-  font-weight: bold;
+  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+  font-weight: 600;
+  box-shadow: 0 4px 15px rgba(102, 126, 234, 0.3);
 }
-
 
 /*
 ICONS SIZE
 */
 
 .sidebar svg {
-  font-size: 18px;
+  font-size: 20px;
+  transition: transform 0.3s ease;
 }
-.sidebar a {
 
+.sidebar li:hover svg {
+  transform: scale(1.1);
+}
+
+.sidebar a {
   display: flex;
-  
   align-items: center;
-  
-  gap: 10px;
-  
+  gap: 12px;
   color: white;
+  text-decoration: none;
+  width: 100%;
+  font-weight: 500;
+}
+
+/* Responsive */
+@media (max-width: 768px) {
+  .sidebar {
+    width: 100%;
+    padding: 16px;
+  }
+
+  .logo {
+    font-size: 20px;
+    margin-bottom: 24px;
+  }
+
+  .sidebar ul {
+    gap: 4px;
+  }
+
+  .sidebar li {
+    padding: 12px 16px;
+  }
+}
   
   text-decoration: none;
   

@@ -10,25 +10,47 @@ class Enseignant(models.Model):
     numtel = models.CharField(max_length=20)
     grade = models.CharField(max_length=50)
     dateRecrutement = models.DateField()
+    statutAdministratif = models.CharField(max_length=100, blank=True, null=True)
 
     def __str__(self):
         return f"{self.nom} {self.prenom}"
+
+
+class Grade(models.Model):
+    nomGrade = models.CharField(max_length=50, unique=True)
+
+    def __str__(self):
+        return self.nomGrade
+
+
+class EnseignantGrade(models.Model):
+    matricule = models.ForeignKey(Enseignant, on_delete=models.CASCADE)
+    grade = models.ForeignKey(Grade, on_delete=models.CASCADE)
+    dateDebut = models.DateField()
+    dateFin = models.DateField(blank=True, null=True)
+
+    class Meta:
+        unique_together = ('matricule', 'grade', 'dateDebut')
 
 
 class Diplome(models.Model):
     idDiplome = models.AutoField(primary_key=True)
     libelleDiplome = models.CharField(max_length=100)
     specialite = models.CharField(max_length=100)
+    universite = models.CharField(max_length=100, blank=True, null=True)
     dateObtention = models.DateField()
-
-    enseignant = models.ForeignKey(
-        Enseignant,
-        on_delete=models.CASCADE,
-        related_name="diplomes"
-    )
 
     def __str__(self):
         return self.libelleDiplome
+
+
+class EnseignantDiplome(models.Model):
+    matricule = models.ForeignKey(Enseignant, on_delete=models.CASCADE)
+    idDiplome = models.ForeignKey(Diplome, on_delete=models.CASCADE)
+    dateObtention = models.DateField()
+
+    class Meta:
+        unique_together = ('matricule', 'idDiplome')
 
 
 class Titre(models.Model):
@@ -44,7 +66,7 @@ class Titre(models.Model):
 
 class Permanent(Titre):
     dateTitularisation = models.DateField()
-    statutAdministratif = models.CharField(max_length=100)
+    anneeInscription = models.IntegerField(blank=True, null=True)
 
 
 class Vacataire(Titre):
@@ -66,6 +88,7 @@ class ContratDocteur(models.Model):
     )
 
     primeRecherche = models.FloatField()
+    numeroOrdre = models.IntegerField(blank=True, null=True)
 
 
 class ContratDoctorant(models.Model):
@@ -77,4 +100,4 @@ class ContratDoctorant(models.Model):
 
     sujetThese = models.CharField(max_length=200)
     universiteInscription = models.CharField(max_length=150)
-    anneeThese = models.IntegerField()
+    anneeInscription = models.IntegerField(blank=True, null=True)

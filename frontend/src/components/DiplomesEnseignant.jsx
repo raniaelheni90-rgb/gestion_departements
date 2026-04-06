@@ -12,6 +12,7 @@ function DiplomesTable({ enseignants }) {
             <th>🎓 ID Diplôme</th>
             <th>📄 Libellé</th>
             <th>🧩 Spécialité</th>
+            <th>🏛️ Université</th>
             <th>📅 Date obtention</th>
           </tr>
         </thead>
@@ -22,6 +23,7 @@ function DiplomesTable({ enseignants }) {
               <td>{e.diplome?.idDiplome || "-"}</td>
               <td>{e.diplome?.libelleDiplome || "-"}</td>
               <td>{e.diplome?.specialite || "-"}</td>
+              <td>{e.diplome?.universite || "-"}</td>
               <td>{e.diplome?.dateObtention || "-"}</td>
             </tr>
           ))}

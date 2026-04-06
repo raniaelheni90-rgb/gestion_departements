@@ -1,94 +1,106 @@
 .table {
+  width: 100%;
+  border-collapse: collapse;
+  background: white;
+  border-radius: 12px;
+  overflow: hidden;
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.08);
+  margin: 20px 0;
+}
 
-    width: 100%;
-  
-    border-collapse: collapse;
-    background: white;
-    border-radius: 12px;
-    overflow: hidden;
-    box-shadow: 0px 6px 18px rgba(0,0,0,0.08);
-  }
-  
-  .table thead {
+.table thead {
+  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+  color: white;
+}
 
-    background: linear-gradient(135deg,#2563eb,#3b82f6);
-  
-    color: white;
-  
-  }
-  
-  .table th {
+.table th {
+  padding: 16px 12px;
+  font-weight: 600;
+  font-size: 14px;
+  letter-spacing: 0.5px;
+  text-align: left;
+}
 
-    font-weight: 500;
-    font-size: 14px;
-    letter-spacing: 0.5px;
-  
+.table td {
+  padding: 16px 12px;
+  font-size: 14px;
+  text-align: left;
+  color: #2d3748;
+  border-bottom: 1px solid #e2e8f0;
+}
+
+.table tbody tr {
+  transition: all 0.2s ease;
+}
+
+.table tbody tr:hover {
+  background: linear-gradient(135deg, #f7fafc 0%, #edf2f7 100%);
+  transform: scale(1.01);
+}
+
+.table thead th {
+  color: white;
+  position: sticky;
+  top: 0;
+}
+
+.icon {
+  cursor: pointer;
+  font-size: 18px;
+  margin: 0 8px;
+  transition: all 0.2s ease;
+  padding: 8px;
+  border-radius: 50%;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.edit-icon {
+  color: #3182ce;
+}
+
+.edit-icon:hover {
+  background: #bee3f8;
+  transform: scale(1.1);
+}
+
+.delete-icon {
+  color: #e53e3e;
+}
+
+.delete-icon:hover {
+  background: #fed7d7;
+  transform: scale(1.1);
+}
+
+/* Dark mode support */
+.dark-mode .table {
+  background: #2d3748;
+  color: #e2e8f0;
+}
+
+.dark-mode .table td {
+  color: #e2e8f0;
+  border-bottom-color: #4a5568;
+}
+
+.dark-mode .table tbody tr:hover {
+  background: #4a5568;
+}
+
+/* Responsive table */
+@media (max-width: 768px) {
+  .table {
+    font-size: 12px;
   }
-  
+
+  .table th,
   .table td {
-  
-    padding: 12px;
-    font-size: 16px;
-    text-align: left;
-    color: #111827;
-    font-weight: 500;
-  
+    padding: 8px 6px;
   }
-  .table tbody tr {
 
-    transition: 0.2s;
-  
+  .table th {
+    font-size: 12px;
   }
-  
-  .table tbody tr:hover {
-  
-    background: #f1f5f9;
-  }
-  .table thead th {
-
-    color: white;
-  
-  }
-  
-  .delete {
-  
-    background: red;
-  
-    margin-left: 10px;
-  }
-  .icon {
-
-    cursor: pointer;
-  
-    font-size: 17px;
-  
-    margin-right: 10px; /* espace بين icons */
-  
-    transition: 0.2s;
-  
-  }
-  
-  .edit-icon:hover {
-  
-    transform: scale(1.2);
-  
-  }
-  
-  .delete-icon:hover {
-  
-    transform: scale(1.2);
-  
-  }
-  .dark-mode .table td {
-
-    color: white;
-  
-  }
-  
-  
-  /* ROW HOVER DARK MODE */
-  
-  .dark-mode .table tbody tr:hover {
-  
-    background: #334155;
-  }  
+}  

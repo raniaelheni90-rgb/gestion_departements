@@ -12,11 +12,14 @@ function EtudiantForm({ selected, onSubmit, onCancel }) {
     numTel: "",
     dateNaissance: "",
     adresse: "",
-    dateInscription: ""
+    dateInscription: "",
+    nationalite: "",
+    passport: ""
   });
 
   const [successMessage, setSuccessMessage] = useState(""); // ← message succès
 
+  // eslint-disable-next-line react-hooks/set-state-in-effect
   useEffect(() => {
 
     if (selected) {
@@ -34,7 +37,9 @@ function EtudiantForm({ selected, onSubmit, onCancel }) {
         numTel: "",
         dateNaissance: "",
         adresse: "",
-        dateInscription: ""
+        dateInscription: "",
+        nationalite: "",
+        passport: ""
   
       });
   
@@ -65,7 +70,7 @@ function EtudiantForm({ selected, onSubmit, onCancel }) {
     }
   
   
-    if (!/^[a-zA-Z]+$/.test(form.nom)) {
+    if (!/^[a-zA-ZÀ-ÿ\s-]+$/.test(form.nom)) {
   
       alert("Nom invalide");
   
@@ -74,7 +79,7 @@ function EtudiantForm({ selected, onSubmit, onCancel }) {
     }
   
   
-    if (!/^[a-zA-Z]+$/.test(form.prenom)) {
+    if (!/^[a-zA-ZÀ-ÿ\s-]+$/.test(form.prenom)) {
   
       alert("Prénom invalide");
   
@@ -95,6 +100,14 @@ function EtudiantForm({ selected, onSubmit, onCancel }) {
     if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(form.email)) {
   
       alert("Email invalide");
+  
+      return;
+  
+    }
+
+    if (form.passport && !/\d/.test(form.passport)) {
+  
+      alert("Passeport doit contenir des chiffres");
   
       return;
   
@@ -193,6 +206,24 @@ required/>
         <div className="input-group">
           <label>Date inscription</label>
           <input type="date" name="dateInscription" value={form.dateInscription} onChange={handleChange} />
+        </div>
+
+        <div className="input-group">
+          <label>Nationalité</label>
+          <input
+name="nationalite"
+value={form.nationalite}
+onChange={handleChange}
+/>
+        </div>
+
+        <div className="input-group">
+          <label>Passport</label>
+          <input
+name="passport"
+value={form.passport}
+onChange={handleChange}
+/>
         </div>
       </div>
 

@@ -16,6 +16,7 @@ typeContrat:"",
 
 dateTitularisation:"",
 statutAdministratif:"",
+anneeInscription:"",
 
 nbHeures:"",
 tauxHoraire:"",
@@ -25,20 +26,22 @@ dateDebut:"",
 dateFin:"",
 sujetThese:"",
 universite:"",
-anneeThese:"",
 primeRecherche:"",
+numeroOrdre:"",
 
 diplome:{
 
 idDiplome:"",
 libelleDiplome:"",
 specialite:"",
+universite:"",
 dateObtention:""
 
 }
 
 });
 
+// eslint-disable-next-line react-hooks/set-state-in-effect
 useEffect(()=>{
 
 if(selected)setForm(selected);
@@ -107,6 +110,14 @@ return(
 <input name="numTel" placeholder="Téléphone" value={form.numTel} onChange={handleChange}/>
 <input type="date" name="dateRecrutement" value={form.dateRecrutement} onChange={handleChange}/>
 
+<label>Statut Administratif</label>
+<select name="statutAdministratif" value={form.statutAdministratif} onChange={handleChange}>
+  <option value="">Choisir</option>
+  <option value="en exercice">En exercice</option>
+  <option value="en détachement">En détachement</option>
+  <option value="en congé étude">En congé étude</option>
+</select>
+
 <label>Type contrat</label>
 
 <select name="typeContrat" value={form.typeContrat} onChange={handleChange}>
@@ -124,7 +135,7 @@ return(
 <>
 
 <input name="dateTitularisation" placeholder="Date titularisation" onChange={handleChange}/>
-<input name="statutAdministratif" placeholder="Statut administratif" onChange={handleChange}/>
+<input name="anneeInscription" placeholder="Année inscription" onChange={handleChange}/>
 
 </>
 
@@ -150,7 +161,7 @@ return(
 <input type="date" name="dateFin" onChange={handleChange}/>
 <input name="sujetThese" placeholder="Sujet thèse" onChange={handleChange}/>
 <input name="universite" placeholder="Université" onChange={handleChange}/>
-<input name="anneeThese" placeholder="Année thèse" onChange={handleChange}/>
+<input name="anneeInscription" placeholder="Année inscription" onChange={handleChange}/>
 
 </>
 
@@ -164,6 +175,7 @@ return(
 <input type="date" name="dateDebut" onChange={handleChange}/>
 <input type="date" name="dateFin" onChange={handleChange}/>
 <input name="primeRecherche" placeholder="Prime recherche" onChange={handleChange}/>
+<input name="numeroOrdre" placeholder="Numéro d'ordre" onChange={handleChange}/>
 
 </>
 
@@ -174,6 +186,7 @@ return(
 <input name="diplome.idDiplome" placeholder="ID diplôme" onChange={handleChange}/>
 <input name="diplome.libelleDiplome" placeholder="Libellé diplôme" onChange={handleChange}/>
 <input name="diplome.specialite" placeholder="Spécialité" onChange={handleChange}/>
+<input name="diplome.universite" placeholder="Université" onChange={handleChange}/>
 <input type="date" name="diplome.dateObtention" onChange={handleChange}/>
 
 <div className="buttons">

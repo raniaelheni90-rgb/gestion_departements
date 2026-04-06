@@ -60,6 +60,7 @@ function GestionEnseignants() {
   const fileRef = useRef(null);
 
   // Charger les données
+  // eslint-disable-next-line react-hooks/set-state-in-effect
   useEffect(() => {
     const saved = localStorage.getItem("enseignants");
     if (saved) setEnseignants(JSON.parse(saved));

@@ -31,23 +31,20 @@ return (
 
   <div className="navbar-top">
 
-    {/* titre page */}
+    {/* Logo and Project Name */}
+    <div className="navbar-left">
+      <h3 className="navbar-logo">🎓 UniDepart</h3>
+    </div>
 
+    {/* Title Center */}
     <h3 className="navbar-title">
-
       Dashboard Administrateur
-
     </h3>
 
-
-    {/* right section */}
-
+    {/* Right Section */}
     <div className="navbar-actions">
-
       <span className="user">
-
         admin
-
       </span>
 
       <button

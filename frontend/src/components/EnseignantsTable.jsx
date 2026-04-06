@@ -18,7 +18,8 @@ return(
   <th>📱 Téléphone</th>
   <th>📅 Date recrutement</th>
   <th>📄 Type contrat</th>
-  <th>🎓 Diplôme</th>
+  <th>�️ Statut Administratif</th>
+  <th>�🎓 Diplôme</th>
   <th>⚙️ Actions</th>
 </tr>
 
@@ -37,6 +38,7 @@ return(
 <td>{e.numTel}</td>
 <td>{e.dateRecrutement}</td>
 <td>{e.typeContrat}</td>
+<td>{e.statutAdministratif}</td>
 <td>{e.diplome?.libelleDiplome}</td>
 
 <td>

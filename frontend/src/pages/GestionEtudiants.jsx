@@ -54,7 +54,7 @@ function GestionEtudiants() {
   /*
   LOAD DATA FROM LOCAL STORAGE
   */
-
+  // eslint-disable-next-line react-hooks/set-state-in-effect
   useEffect(() => {
 
     const savedData = localStorage.getItem("etudiants");
@@ -161,8 +161,7 @@ function GestionEtudiants() {
       etudiants.filter(
         (e) => e.idEtudiant !== id
       )
-    );  
-    setEtudiants(filtered);
+    );
 
     setSuccessMessage("Étudiant supprimé avec succès");
 
