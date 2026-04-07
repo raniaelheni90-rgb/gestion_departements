@@ -149,26 +149,104 @@ function GestionEtudiants() {
   DELETE ETUDIANT
   */
 
-  const handleDelete = (id) => {
+  const normalizeSpaces = (value) =>
+    typeof value === "string"
+      ? value.trim().replace(/\s+/g, " ")
+      : value;
 
-    const confirmDelete = window.confirm(
-      "Voulez-vous vraiment supprimer cet étudiant ?"
-    );
-  
-    if (!confirmDelete) return;
-  
-    setEtudiants(
-      etudiants.filter(
-        (e) => e.idEtudiant !== id
-      )
-    );
+  const cleanDigits = (value) =>
+    String(value || "").replace(/\D/g, "");
 
-    setSuccessMessage("Étudiant supprimé avec succès");
+  const cleanEmail = (value) =>
+    String(value || "").trim().toLowerCase();
 
-    setTimeout(() => {
-      setSuccessMessage("");
-    }, 3000);
+  const cleanEtudiant = (item) => ({
+    idEtudiant: item.idEtudiant ? Number(item.idEtudiant) : null,
+    cin: cleanDigits(item.cin),
+    nom: normalizeSpaces(item.nom),
+    prenom: normalizeSpaces(item.prenom),
+    email: cleanEmail(item.email),
+    numTel: cleanDigits(item.numTel),
+    dateNaissance: String(item.dateNaissance || "").trim(),
+    adresse: normalizeSpaces(item.adresse),
+    dateInscription: String(item.dateInscription || "").trim(),
+    nationalite: normalizeSpaces(item.nationalite),
+    passport: String(item.passport || "").trim()
+  });
 
+  const normalizeHeader = (header) =>
+    String(header)
+      .trim()
+      .toLowerCase()
+      .replace(/\s+/g, " ")
+      .replace(/[^a-z0-9 ]/g, "");
+
+  const parseCsvLine = (line) => {
+    const parts = [];
+    const regex = /(?:"([^"]*(?:""[^"]*)*)"|([^",]*))(?:,|$)/g;
+    let match;
+    while ((match = regex.exec(line))) {
+      let value = match[1] || match[2] || "";
+      value = value.replace(/""/g, '"');
+      parts.push(value.trim());
+    }
+    return parts;
+  };
+
+  const parseCsv = (text) => {
+    const rows = text
+      .split(/\r?\n/)
+      .map((line) => line.trim())
+      .filter(Boolean);
+
+    if (rows.length < 2) return [];
+
+    const rawHeaders = parseCsvLine(rows[0]);
+    const headers = rawHeaders.map((field) => {
+      const normalized = normalizeHeader(field);
+      switch (normalized) {
+        case "cin":
+        case "cni":
+          return "cin";
+        case "nom":
+          return "nom";
+        case "prenom":
+          return "prenom";
+        case "email":
+          return "email";
+        case "telephone":
+        case "numtel":
+        case "num tele":
+          return "numTel";
+        case "datenaissance":
+        case "date naissance":
+          return "dateNaissance";
+        case "adresse":
+          return "adresse";
+        case "dateinscription":
+        case "date inscription":
+          return "dateInscription";
+        case "nationalite":
+        case "nationalité":
+          return "nationalite";
+        case "passport":
+        case "passeport":
+          return "passport";
+        case "idetudiant":
+        case "id etudiant":
+          return "idEtudiant";
+        default:
+          return normalized;
+      }
+    });
+
+    return rows.slice(1).map((line) => {
+      const values = parseCsvLine(line);
+      return headers.reduce((acc, header, index) => {
+        acc[header] = values[index] ?? "";
+        return acc;
+      }, {});
+    });
   };
 
 
@@ -188,15 +266,59 @@ function GestionEtudiants() {
   */
 
   const handleImport = (e) => {
-
     const file = e.target.files[0];
+    if (!file) return;
 
-    if (file) {
+    const reader = new FileReader();
+    reader.onload = () => {
+      let importedData = [];
+      const text = reader.result;
 
-      alert("Fichier sélectionné : " + file.name);
+      if (file.name.toLowerCase().endsWith(".json")) {
+        try {
+          importedData = JSON.parse(text);
+        } catch (error) {
+          return alert("Impossible de lire le fichier JSON.");
+        }
+      } else {
+        importedData = parseCsv(text);
+      }
 
-    }
+      if (!Array.isArray(importedData) || !importedData.length) {
+        return alert("Aucune donnée importable trouvée.");
+      }
 
+      const cleanedData = importedData
+        .map(cleanEtudiant)
+        .filter((item) => item.cin || item.nom || item.prenom);
+
+      if (!cleanedData.length) {
+        return alert("Aucune ligne valide trouvée après nettoyage.");
+      }
+
+      const nextId = etudiants.length
+        ? Math.max(...etudiants.map((e) => e.idEtudiant)) + 1
+        : 1;
+
+      const preparedData = cleanedData.map((item, index) => ({
+        ...item,
+        idEtudiant: item.idEtudiant || nextId + index
+      }));
+
+      setEtudiants([...etudiants, ...preparedData]);
+      setSuccessMessage(`${preparedData.length} étudiant(s) importé(s) et nettoyé(s)`);
+
+      setTimeout(() => setSuccessMessage(""), 3000);
+    };
+
+    reader.readAsText(file);
+  };
+
+  const handleDelete = (idEtudiant) => {
+    if (!window.confirm("Voulez-vous vraiment supprimer cet étudiant ?")) return;
+    setEtudiants(etudiants.filter((e) => e.idEtudiant !== idEtudiant));
+    setSuccessMessage("Étudiant supprimé avec succès");
+    setTimeout(() => setSuccessMessage(""), 3000);
   };
 
 
@@ -323,6 +445,7 @@ function GestionEtudiants() {
   
       <input
         type="file"
+        accept=".csv,.json"
         ref={fileRef}
         style={{ display: "none" }}
         onChange={handleImport}

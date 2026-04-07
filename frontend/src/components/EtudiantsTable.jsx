@@ -24,17 +24,17 @@ function EtudiantsTable({ etudiants, onEdit, onDelete }) {
       <tbody>
         {etudiants.map((e) => (
           <tr key={e.idEtudiant}>
-            <td>{e.idEtudiant}</td>
-            <td>{e.passport}</td>
-            <td>{e.nationalite}</td>
-            <td>{e.cin}</td>
-            <td>{e.nom}</td>
-            <td>{e.prenom}</td>
-            <td>{e.email}</td>
-            <td>{e.numTel}</td>
-            <td>{e.dateNaissance}</td>
-            <td>{e.adresse}</td>
-            <td>{e.dateInscription}</td>
+            <td>{e.idEtudiant ?? '-'}</td>
+            <td>{e.cin || '-'}</td>
+            <td>{e.passport || '-'}</td>
+            <td>{e.nationalite || '-'}</td>
+            <td>{e.nom || '-'}</td>
+            <td>{e.prenom || '-'}</td>
+            <td>{e.email || '-'}</td>
+            <td>{e.numTel || '-'}</td>
+            <td>{e.dateNaissance || '-'}</td>
+            <td>{e.adresse || '-'}</td>
+            <td>{e.dateInscription || '-'}</td>
 
             <td>
 

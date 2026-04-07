@@ -4,6 +4,7 @@ import Layout from "./layout/Layout";
 
 import GestionEtudiants from "./pages/GestionEtudiants";
 import GestionEnseignants from "./pages/GestionEnseignants";
+import GestionPFEs from "./pages/GestionPFEs";
 
 function App() {
 
@@ -18,6 +19,8 @@ return (
 <Route path="/etudiants" element={<GestionEtudiants />} />
 
 <Route path="/enseignants" element={<GestionEnseignants />} />
+
+<Route path="/pfes" element={<GestionPFEs />} />
 
 </Routes>
 

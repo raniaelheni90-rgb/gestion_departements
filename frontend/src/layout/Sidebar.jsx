@@ -2,7 +2,8 @@ import "./Sidebar.css";
 
 import {
   FaUserGraduate,
-  FaChalkboardTeacher
+  FaChalkboardTeacher,
+  FaProjectDiagram
 } from "react-icons/fa";
 
 import { NavLink } from "react-router-dom";
@@ -24,10 +25,10 @@ return (
 <li>
 
 <NavLink
-to="/etudiants"
-className={({ isActive }) =>
-isActive ? "active-link" : ""
-}
+  to="/etudiants"
+  className={({ isActive }) =>
+  isActive ? "active-link" : ""
+  }
 >
 
 <FaUserGraduate />
@@ -41,15 +42,32 @@ Gestion Étudiants
 <li>
 
 <NavLink
-to="/enseignants"
-className={({ isActive }) =>
-isActive ? "active-link" : ""
-}
+  to="/enseignants"
+  className={({ isActive }) =>
+  isActive ? "active-link" : ""
+  }
 >
 
 <FaChalkboardTeacher />
 
 Gestion Enseignants
+
+</NavLink>
+
+</li>
+
+<li>
+
+<NavLink
+  to="/pfes"
+  className={({ isActive }) =>
+  isActive ? "active-link" : ""
+  }
+>
+
+<FaProjectDiagram />
+
+Gestion PFE
 
 </NavLink>
 

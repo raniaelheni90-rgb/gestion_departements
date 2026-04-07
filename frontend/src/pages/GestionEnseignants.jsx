@@ -89,6 +89,121 @@ function GestionEnseignants() {
     setTimeout(() => setSuccessMessage(""), 3000);
   };
 
+  const normalizeSpaces = (value) =>
+    typeof value === "string"
+      ? value.trim().replace(/\s+/g, " ")
+      : value;
+
+  const cleanDigits = (value) =>
+    String(value || "").replace(/\D/g, "");
+
+  const cleanEmail = (value) =>
+    String(value || "").trim().toLowerCase();
+
+  const cleanEnseignant = (item) => ({
+    matricule: normalizeSpaces(item.matricule),
+    cin: cleanDigits(item.cin),
+    nom: normalizeSpaces(item.nom),
+    prenom: normalizeSpaces(item.prenom),
+    email: cleanEmail(item.email),
+    grade: normalizeSpaces(item.grade),
+    numTel: cleanDigits(item.numTel),
+    dateRecrutement: String(item.dateRecrutement || "").trim(),
+    typeContrat: normalizeSpaces(item.typeContrat),
+    dateTitularisation: String(item.dateTitularisation || "").trim(),
+    statutAdministratif: normalizeSpaces(item.statutAdministratif),
+    diplome: {
+      idDiplome: normalizeSpaces(item.idDiplome),
+      libelleDiplome: normalizeSpaces(item.libelleDiplome),
+      specialite: normalizeSpaces(item.specialite),
+      dateObtention: String(item.dateObtention || "").trim()
+    }
+  });
+
+  const normalizeHeader = (header) =>
+    String(header)
+      .trim()
+      .toLowerCase()
+      .replace(/\s+/g, " ")
+      .replace(/[^a-z0-9 ]/g, "");
+
+  const parseCsvLine = (line) => {
+    const parts = [];
+    const regex = /(?:"([^"]*(?:""[^"]*)*)"|([^",]*))(?:,|$)/g;
+    let match;
+    while ((match = regex.exec(line))) {
+      let value = match[1] || match[2] || "";
+      value = value.replace(/""/g, '"');
+      parts.push(value.trim());
+    }
+    return parts;
+  };
+
+  const parseCsv = (text) => {
+    const rows = text
+      .split(/\r?\n/)
+      .map((line) => line.trim())
+      .filter(Boolean);
+
+    if (rows.length < 2) return [];
+
+    const rawHeaders = parseCsvLine(rows[0]);
+    const headers = rawHeaders.map((field) => {
+      const normalized = normalizeHeader(field);
+      switch (normalized) {
+        case "matricule":
+          return "matricule";
+        case "cin":
+          return "cin";
+        case "nom":
+          return "nom";
+        case "prenom":
+          return "prenom";
+        case "email":
+          return "email";
+        case "grade":
+          return "grade";
+        case "telephone":
+        case "numtel":
+        case "num tel":
+          return "numTel";
+        case "daterecrutement":
+        case "date recrutement":
+          return "dateRecrutement";
+        case "typecontrat":
+        case "type contrat":
+          return "typeContrat";
+        case "datetitularisation":
+        case "date titularisation":
+          return "dateTitularisation";
+        case "statutadministratif":
+        case "statut administratif":
+          return "statutAdministratif";
+        case "iddiplome":
+        case "id diplome":
+          return "idDiplome";
+        case "libellediplome":
+        case "libelle diplome":
+          return "libelleDiplome";
+        case "specialite":
+          return "specialite";
+        case "dateobtention":
+        case "date obtention":
+          return "dateObtention";
+        default:
+          return normalized;
+      }
+    });
+
+    return rows.slice(1).map((line) => {
+      const values = parseCsvLine(line);
+      return headers.reduce((acc, header, index) => {
+        acc[header] = values[index] ?? "";
+        return acc;
+      }, {});
+    });
+  };
+
   const handleDelete = (matricule) => {
     if (!window.confirm("Voulez-vous vraiment supprimer cet enseignant ?")) return;
     setEnseignants(enseignants.filter((e) => e.matricule !== matricule));
@@ -99,7 +214,41 @@ function GestionEnseignants() {
   const handleImportClick = () => fileRef.current.click();
   const handleImport = (e) => {
     const file = e.target.files[0];
-    if (file) alert("Fichier sélectionné : " + file.name);
+    if (!file) return;
+
+    const reader = new FileReader();
+    reader.onload = () => {
+      let importedData = [];
+      const text = reader.result;
+
+      if (file.name.toLowerCase().endsWith(".json")) {
+        try {
+          importedData = JSON.parse(text);
+        } catch (error) {
+          return alert("Impossible de lire le fichier JSON.");
+        }
+      } else {
+        importedData = parseCsv(text);
+      }
+
+      if (!Array.isArray(importedData) || !importedData.length) {
+        return alert("Aucune donnée importable trouvée.");
+      }
+
+      const cleanedData = importedData
+        .map(cleanEnseignant)
+        .filter((item) => item.matricule || item.nom || item.prenom);
+
+      if (!cleanedData.length) {
+        return alert("Aucune ligne valide trouvée après nettoyage.");
+      }
+
+      setEnseignants([...enseignants, ...cleanedData]);
+      setSuccessMessage(`${cleanedData.length} enseignant(s) importé(s) et nettoyé(s)`);
+      setTimeout(() => setSuccessMessage(""), 3000);
+    };
+
+    reader.readAsText(file);
   };
 
   // Filtrage
@@ -168,6 +317,7 @@ function GestionEnseignants() {
 
       <input
         type="file"
+        accept=".csv,.json"
         ref={fileRef}
         style={{ display: "none" }}
         onChange={handleImport}

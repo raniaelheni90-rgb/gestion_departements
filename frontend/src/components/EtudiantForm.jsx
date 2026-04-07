@@ -24,12 +24,25 @@ function EtudiantForm({ selected, onSubmit, onCancel }) {
 
     if (selected) {
   
-      setForm(selected);
+      setForm({
+        idEtudiant: selected.idEtudiant || "",
+        cin: selected.cin || "",
+        nom: selected.nom || "",
+        prenom: selected.prenom || "",
+        email: selected.email || "",
+        numTel: selected.numTel || "",
+        dateNaissance: selected.dateNaissance || "",
+        adresse: selected.adresse || "",
+        dateInscription: selected.dateInscription || "",
+        nationalite: selected.nationalite || "",
+        passport: selected.passport || ""
+      });
   
     } else {
   
       setForm({
   
+        idEtudiant: "",
         cin: "",
         nom: "",
         prenom: "",
@@ -47,6 +60,25 @@ function EtudiantForm({ selected, onSubmit, onCancel }) {
   
   }, [selected]);
 
+  const normalizeSpaces = (value) =>
+    typeof value === "string"
+      ? value.trim().replace(/\s+/g, " ")
+      : value;
+
+  const cleanFormData = (data) => ({
+    ...data,
+    cin: String(data.cin || "").replace(/\D/g, ""),
+    nom: normalizeSpaces(data.nom),
+    prenom: normalizeSpaces(data.prenom),
+    email: String(data.email || "").trim().toLowerCase(),
+    numTel: String(data.numTel || "").replace(/\D/g, ""),
+    adresse: normalizeSpaces(data.adresse),
+    nationalite: normalizeSpaces(data.nationalite),
+    passport: String(data.passport || "").trim(),
+    dateNaissance: String(data.dateNaissance || "").trim(),
+    dateInscription: String(data.dateInscription || "").trim()
+  });
+
   const handleChange = (e) => {
     setForm({ ...form, [e.target.name]: e.target.value });
   };
@@ -59,9 +91,12 @@ function EtudiantForm({ selected, onSubmit, onCancel }) {
     /*
     VALIDATION
     */
+
+    const cleanedForm = cleanFormData(form);
+    setForm(cleanedForm);
   
   
-    if (!/^[0-9]{8}$/.test(form.cin)) {
+    if (!/^[0-9]{8}$/.test(cleanedForm.cin)) {
   
       alert("CIN doit contenir 8 chiffres");
   
@@ -70,7 +105,7 @@ function EtudiantForm({ selected, onSubmit, onCancel }) {
     }
   
   
-    if (!/^[a-zA-ZÀ-ÿ\s-]+$/.test(form.nom)) {
+    if (!/^[a-zA-ZÀ-ÿ\s-]+$/.test(cleanedForm.nom)) {
   
       alert("Nom invalide");
   
@@ -79,7 +114,7 @@ function EtudiantForm({ selected, onSubmit, onCancel }) {
     }
   
   
-    if (!/^[a-zA-ZÀ-ÿ\s-]+$/.test(form.prenom)) {
+    if (!/^[a-zA-ZÀ-ÿ\s-]+$/.test(cleanedForm.prenom)) {
   
       alert("Prénom invalide");
   
@@ -88,7 +123,7 @@ function EtudiantForm({ selected, onSubmit, onCancel }) {
     }
   
   
-    if (!/^[0-9]{8}$/.test(form.numTel)) {
+    if (!/^[0-9]{8}$/.test(cleanedForm.numTel)) {
   
       alert("Téléphone doit contenir 8 chiffres");
   
@@ -97,7 +132,7 @@ function EtudiantForm({ selected, onSubmit, onCancel }) {
     }
   
   
-    if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(form.email)) {
+    if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(cleanedForm.email)) {
   
       alert("Email invalide");
   
@@ -105,19 +140,43 @@ function EtudiantForm({ selected, onSubmit, onCancel }) {
   
     }
 
-    if (form.passport && !/\d/.test(form.passport)) {
+    if (cleanedForm.nationalite && !/^[a-zA-ZÀ-ÿ\s-]+$/.test(cleanedForm.nationalite)) {
   
-      alert("Passeport doit contenir des chiffres");
+      alert("Nationalité invalide");
+  
+      return;
+  
+    }
+
+    if (cleanedForm.passport && !/^(?=.*[0-9])[A-Za-z0-9-\s]+$/.test(cleanedForm.passport)) {
+  
+      alert("Passeport invalide : doit contenir au moins un chiffre");
   
       return;
   
     }
   
   
-    onSubmit(form);
+    onSubmit(cleanedForm);
   
   
     setSuccessMessage("Étudiant enregistré avec succès !");
+  
+  
+    // Reset form after successful submission
+    setForm({
+      idEtudiant: "",
+      cin: "",
+      nom: "",
+      prenom: "",
+      email: "",
+      numTel: "",
+      dateNaissance: "",
+      adresse: "",
+      dateInscription: "",
+      nationalite: "",
+      passport: ""
+    });
   
   
     setTimeout(() =>
@@ -145,6 +204,7 @@ function EtudiantForm({ selected, onSubmit, onCancel }) {
 name="cin"
 value={form.cin}
 onChange={handleChange}
+placeholder="-"
 required
 />
         </div>
@@ -155,6 +215,7 @@ required
 name="nom"
 value={form.nom}
 onChange={handleChange}
+placeholder="-"
 required
 />
         </div>
@@ -185,6 +246,7 @@ required
 name="numTel"
 value={form.numTel}
 onChange={handleChange}
+placeholder="-"
 required
 />
         </div>
@@ -200,6 +262,7 @@ required
 name="adresse"
 value={form.adresse}
 onChange={handleChange}
+placeholder="-"
 required/>
         </div>
 
@@ -214,6 +277,7 @@ required/>
 name="nationalite"
 value={form.nationalite}
 onChange={handleChange}
+placeholder="-"
 />
         </div>
 
@@ -223,6 +287,7 @@ onChange={handleChange}
 name="passport"
 value={form.passport}
 onChange={handleChange}
+placeholder="-"
 />
         </div>
       </div>
