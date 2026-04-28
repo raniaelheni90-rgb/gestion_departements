@@ -74,6 +74,16 @@ class EnseignantViewSet(viewsets.ModelViewSet):
         
         return qs.filter(matricule=enseignant.matricule)
 
+    def destroy(self, request, *args, **kwargs):
+        from django.db.models import ProtectedError
+        try:
+            return super().destroy(request, *args, **kwargs)
+        except ProtectedError:
+            return Response(
+                {"detail": "Impossible de supprimer cet enseignant car il est assigné en tant qu'encadrant ou rapporteur à un PFE ou à une soutenance."},
+                status=status.HTTP_400_BAD_REQUEST
+            )
+
     parser_classes = [MultiPartParser, FormParser, JSONParser]
 
     @action(detail=False, methods=['post'], url_path='import-excel')

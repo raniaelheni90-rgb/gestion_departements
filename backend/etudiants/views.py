@@ -31,3 +31,15 @@ class EtudiantViewSet(viewsets.ModelViewSet):
             ).distinct()
         
         return Etudiant.objects.none()
+
+    def destroy(self, request, *args, **kwargs):
+        from django.db.models import ProtectedError
+        from rest_framework import status
+        from rest_framework.response import Response
+        try:
+            return super().destroy(request, *args, **kwargs)
+        except ProtectedError:
+            return Response(
+                {"detail": "Impossible de supprimer cet étudiant car il est assigné à un PFE."},
+                status=status.HTTP_400_BAD_REQUEST
+            )

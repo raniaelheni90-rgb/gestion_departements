@@ -128,7 +128,7 @@ function GestionSoutenances() {
       loadData();
     } catch (err) {
       console.error(err);
-      setError("Erreur lors de l'enregistrement de la soutenance.");
+      setError(err.response?.data?.detail || "Erreur lors de la suppression de la soutenance.");
     }
   };
 

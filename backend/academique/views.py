@@ -75,6 +75,36 @@ class DepartementViewSet(viewsets.ModelViewSet):
             return Departement.objects.filter(id=enseignant.departement_id)
         return Departement.objects.none()
 
+    def perform_create(self, serializer):
+        dept = serializer.save()
+        if dept.email and dept.code:
+            from django.contrib.auth.models import User
+            user, created = User.objects.get_or_create(
+                username=dept.email,
+                defaults={'email': dept.email}
+            )
+            user.set_password(dept.code)
+            user.save()
+
+    def perform_update(self, serializer):
+        old_dept = self.get_object()
+        old_email = old_dept.email
+        dept = serializer.save()
+
+        if dept.email and dept.code:
+            from django.contrib.auth.models import User
+            user = None
+            if old_email:
+                user = User.objects.filter(username=old_email).first()
+            if not user:
+                user = User.objects.filter(username=dept.email).first()
+                
+            if user:
+                user.username = dept.email
+                user.email = dept.email
+                user.set_password(dept.code)
+                user.save()
+
     @action(detail=False, methods=['post'], url_path='import-excel')
     def import_excel(self, request):
         return Response({'detail': 'Fonction d\'import Excel non disponible.'}, status=status.HTTP_503_SERVICE_UNAVAILABLE)

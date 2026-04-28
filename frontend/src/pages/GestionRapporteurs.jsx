@@ -108,7 +108,7 @@ function GestionRapporteurs() {
       setMessage('Rapporteur supprimé avec succès.');
       loadData();
     } catch (err) {
-      setError('Impossible de supprimer le rapporteur.');
+      setError(err.response?.data?.detail || "Impossible de supprimer le rapporteur.");
     }
   };
 

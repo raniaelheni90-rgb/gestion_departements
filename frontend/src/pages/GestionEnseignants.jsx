@@ -265,7 +265,7 @@ function GestionEnseignants() {
       setErrorMessage('');
       loadData();
     } catch (err) {
-      setErrorMessage('Impossible de supprimer l\'enseignant');
+      setErrorMessage(err.response?.data?.detail || "Impossible de supprimer l'enseignant");
     }
     setTimeout(() => setSuccessMessage(""), 3000);
   };

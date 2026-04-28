@@ -229,7 +229,7 @@ function GestionPFEs() {
       setMessage('PFE supprimé avec succès.');
       setPFEs((prev) => prev.filter((item) => item.idPfe !== idPfe));
     } catch (err) {
-      setError('Impossible de supprimer le PFE.');
+      setError(err.response?.data?.detail || "Impossible de supprimer le PFE.");
     }
   };
 

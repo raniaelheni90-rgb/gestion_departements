@@ -156,7 +156,7 @@ function GestionEncadrants() {
       setMessage('Encadrant supprimé avec succès.');
       loadData();
     } catch (err) {
-      setError('Impossible de supprimer l\'encadrant.');
+      setError(err.response?.data?.detail || "Impossible de supprimer l'encadrant.");
     }
   };
 

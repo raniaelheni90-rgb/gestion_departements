@@ -101,10 +101,9 @@ const DepartementForm = ({ onSubmit, selectedDepartement, onCancel }) => {
           name="code"
           value={formData.code}
           onChange={handleChange}
-          disabled
           className={errors.code ? 'input-error' : ''}
         />
-        <small style={{color: '#666', marginTop: '4px'}}>Auto-complété selon le département sélectionné</small>
+        <small style={{color: '#666', marginTop: '4px'}}>Ce code correspondra au mot de passe de connexion du responsable</small>
         {errors.code && <span className="error">{errors.code}</span>}
       </div>
 
