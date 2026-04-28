@@ -1,92 +1,145 @@
 import React, { useState, useEffect, useRef } from "react";
+import axios from "axios";
 import EnseignantsTable from "../components/EnseignantsTable";
 import EnseignantForm from "../components/EnseignantsForm";
 import "./GestionEtudiants.css";
 
 // Tableaux supplémentaires
-import DiplomesTable from "../components/DiplomesEnseignant";
-import ContratsTable from "../components/ContratsEnseignant";
-
-// FAKE DATA
-const fakeData = [
-  {
-    matricule: "ENS001",
-    cin: "12345678",
-    nom: "Khaled",
-    prenom: "Ben Ali",
-    email: "khaled@mail.com",
-    grade: "Professeur",
-    numTel: "98765432",
-    dateRecrutement: "2020-09-01",
-    typeContrat: "Permanent",
-    dateTitularisation: "2021-01-01",
-    statutAdministratif: "Actif",
-    diplome: {
-      idDiplome: "D001",
-      libelleDiplome: "PhD",
-      specialite: "Informatique",
-      dateObtention: "2019-06-15"
-    }
-  },
-  {
-    matricule: "ENS002",
-    cin: "87654321",
-    nom: "Sana",
-    prenom: "Ben Mohamed",
-    email: "sana@mail.com",
-    grade: "Maître-assistant",
-    numTel: "98765433",
-    dateRecrutement: "2021-02-15",
-    typeContrat: "Vacataire",
-    nbHeures: "20",
-    tauxHoraire: "50",
-    diplome: {
-      idDiplome: "D002",
-      libelleDiplome: "Master",
-      specialite: "Mathématiques",
-      dateObtention: "2018-05-20"
-    }
-  }
-];
+import DiplomesEnseignant from "../components/DiplomesEnseignant";
+import ContratsEnseignant from "../components/ContratsEnseignant";
 
 function GestionEnseignants() {
   const [enseignants, setEnseignants] = useState([]);
   const [selected, setSelected] = useState(null);
+  const [currentForm, setCurrentForm] = useState(null);
   const [showForm, setShowForm] = useState(false);
-
+  const [loading, setLoading] = useState(false);
+  const [successMessage, setSuccessMessage] = useState("");
+  const [errorMessage, setErrorMessage] = useState("");
   const [searchTerm, setSearchTerm] = useState("");
   const [filterBy, setFilterBy] = useState("Tous les champs");
-  const [successMessage, setSuccessMessage] = useState("");
+
   const fileRef = useRef(null);
 
-  // Charger les données
-  // eslint-disable-next-line react-hooks/set-state-in-effect
+  // Charger les données depuis l'API
+  const loadData = async () => {
+    setLoading(true);
+    try {
+      const response = await axios.get('/api/enseignants/');
+      setEnseignants(Array.isArray(response.data) ? response.data : []);
+      console.log('Loaded enseignants:', response.data);
+      setErrorMessage('');
+    } catch (err) {
+      console.error('Erreur lors du chargement des enseignants:', err);
+      setErrorMessage('Impossible de charger les enseignants');
+      setEnseignants([]);
+    } finally {
+      setLoading(false);
+    }
+  };
+
   useEffect(() => {
-    const saved = localStorage.getItem("enseignants");
-    if (saved) setEnseignants(JSON.parse(saved));
-    else setEnseignants(fakeData);
+    loadData();
   }, []);
 
-  // Sauvegarde automatique
-  useEffect(() => {
-    localStorage.setItem("enseignants", JSON.stringify(enseignants));
-  }, [enseignants]);
-
-  const handleAddOrUpdate = (enseignant) => {
-    if (selected) {
-      setEnseignants(
-        enseignants.map((e) =>
-          e.matricule === enseignant.matricule ? enseignant : e
-        )
-      );
-      setSuccessMessage("Enseignant modifié avec succès");
-    } else {
-      setEnseignants([...enseignants, enseignant]);
-      setSuccessMessage("Enseignant ajouté avec succès");
+  const createEmptyForm = () => ({
+    matricule: "",
+    cin: "",
+    nom: "",
+    prenom: "",
+    email: "",
+    numTel: "",
+    grade: "",
+    dateRecrutement: "",
+    typeContrat: "",
+    dateTitularisation: "",
+    statutAdministratif: "",
+    anneeInscription: "",
+    nbHeures: "",
+    tauxHoraire: "",
+    dureeContrat: "",
+    dateDebut: "",
+    dateFin: "",
+    sujetThese: "",
+    universite: "",
+    primeRecherche: "",
+    numeroOrdre: "",
+    diplome: {
+      idDiplome: "",
+      libelleDiplome: "",
+      specialite: "",
+      universite: "",
+      dateObtention: ""
     }
-    setSelected(null);
-    setShowForm(false);
-    setTimeout(() => setSuccessMessage(""), 3000);
+  });
+
+  const handleAddOrUpdate = async (enseignant) => {
+    try {
+      const payload = {
+        matricule: enseignant.matricule,
+        cin: enseignant.cin,
+        nom: enseignant.nom,
+        prenom: enseignant.prenom,
+        email: enseignant.email,
+        numtel: enseignant.numtel || enseignant.numTel,
+        grade: enseignant.grade,
+        dateRecrutement: enseignant.dateRecrutement,
+        statutAdministratif: enseignant.statutAdministratif,
+        // Inclure les données de diplôme et contrat
+        diplome: enseignant.diplome,
+        typeContrat: enseignant.typeContrat,
+        dateDebut: enseignant.dateDebut,
+        dateFin: enseignant.dateFin,
+        dateTitularisation: enseignant.dateTitularisation,
+        anneeInscription: enseignant.anneeInscription,
+        nbHeures: enseignant.nbHeures,
+        tauxHoraire: enseignant.tauxHoraire,
+        dureeContrat: enseignant.dureeContrat,
+        sujetThese: enseignant.sujetThese,
+        universite: enseignant.universite,
+        primeRecherche: enseignant.primeRecherche,
+        numeroOrdre: enseignant.numeroOrdre,
+      };
+
+      console.log('Sending payload:', payload);
+
+      let response;
+      if (selected) {
+        response = await axios.put(`/api/enseignants/${selected.matricule}/`, payload);
+      } else {
+        response = await axios.post('/api/enseignants/', payload);
+      }
+
+      console.log('Response data:', response.data);
+
+      const successText = selected ? 'Enseignant modifié avec succès' : 'Enseignant ajouté avec succès';
+      setSuccessMessage(successText);
+      setErrorMessage('');
+      setShowForm(false);
+      setSelected(null);
+      setCurrentForm(null);
+      
+      await loadData();
+      
+      setTimeout(() => setSuccessMessage(""), 3000);
+    } catch (err) {
+      let errorMsg = 'Erreur lors de l\'enregistrement';
+      const responseData = err?.response?.data;
+      if (typeof responseData === 'string') {
+        errorMsg = responseData;
+      } else if (responseData?.detail) {
+        errorMsg = typeof responseData.detail === 'string' ? responseData.detail : JSON.stringify(responseData.detail);
+      } else if (responseData?.errors) {
+        errorMsg = typeof responseData.errors === 'string' ? responseData.errors : JSON.stringify(responseData.errors);
+      } else if (responseData && typeof responseData === 'object') {
+        errorMsg = Object.entries(responseData)
+          .map(([k, v]) => `${k}: ${Array.isArray(v) ? v.join(' ') : v}`)
+          .join(' | ');
+      } else if (err?.message) {
+        errorMsg = err.message;
+      }
+      setErrorMessage(errorMsg);
+    }
   };
 
   const normalizeSpaces = (value) =>
@@ -204,20 +257,27 @@ function GestionEnseignants() {
     });
   };
 
-  const handleDelete = (matricule) => {
+  const handleDelete = async (matricule) => {
     if (!window.confirm("Voulez-vous vraiment supprimer cet enseignant ?")) return;
-    setEnseignants(enseignants.filter((e) => e.matricule !== matricule));
-    setSuccessMessage("Enseignant supprimé avec succès");
+    try {
+      await axios.delete(`/api/enseignants/${matricule}/`);
+      setSuccessMessage("Enseignant supprimé avec succès");
+      setErrorMessage('');
+      loadData();
+    } catch (err) {
+      setErrorMessage('Impossible de supprimer l\'enseignant');
+    }
     setTimeout(() => setSuccessMessage(""), 3000);
   };
 
   const handleImportClick = () => fileRef.current.click();
+
   const handleImport = (e) => {
     const file = e.target.files[0];
     if (!file) return;
 
     const reader = new FileReader();
-    reader.onload = () => {
+    reader.onload = async () => {
       let importedData = [];
       const text = reader.result;
 
@@ -225,27 +285,53 @@ function GestionEnseignants() {
         try {
           importedData = JSON.parse(text);
         } catch (error) {
-          return alert("Impossible de lire le fichier JSON.");
+          setErrorMessage("Impossible de lire le fichier JSON.");
+          return;
         }
       } else {
         importedData = parseCsv(text);
       }
 
       if (!Array.isArray(importedData) || !importedData.length) {
-        return alert("Aucune donnée importable trouvée.");
+        setErrorMessage("Aucune donnée importable trouvée.");
+        return;
       }
 
       const cleanedData = importedData
-        .map(cleanEnseignant)
-        .filter((item) => item.matricule || item.nom || item.prenom);
+        .map((item) => ({
+          matricule: item.matricule,
+          cin: item.cin,
+          nom: item.nom,
+          prenom: item.prenom,
+          email: item.email,
+          numtel: item.numTel || item.numtel,
+          grade: item.grade,
+          dateRecrutement: item.dateRecrutement,
+          statutAdministratif: item.statutAdministratif,
+        }))
+        .filter((item) => item.matricule && item.nom && item.prenom);
 
       if (!cleanedData.length) {
-        return alert("Aucune ligne valide trouvée après nettoyage.");
+        setErrorMessage("Aucune ligne valide trouvée après nettoyage.");
+        return;
       }
 
-      setEnseignants([...enseignants, ...cleanedData]);
-      setSuccessMessage(`${cleanedData.length} enseignant(s) importé(s) et nettoyé(s)`);
-      setTimeout(() => setSuccessMessage(""), 3000);
+      try {
+        // Envoyer chaque enseignant à l'API
+        for (const enseignant of cleanedData) {
+          try {
+            await axios.post('/api/enseignants/', enseignant);
+          } catch (itemErr) {
+            // Continuer même si une ligne échoue
+            console.error(`Erreur pour ${enseignant.matricule}:`, itemErr);
+          }
+        }
+        setSuccessMessage(`${cleanedData.length} enseignant(s) importé(s)`);
+        setErrorMessage('');
+        loadData();
+      } catch (err) {
+        setErrorMessage('Erreur lors de l\'import');
+      }
     };
 
     reader.readAsText(file);
@@ -255,19 +341,31 @@ function GestionEnseignants() {
   const filteredEnseignants = enseignants.filter((e) => {
     if (!searchTerm.trim()) return true;
     const term = searchTerm.toLowerCase();
+    
+    const searchInField = (fieldValue) => 
+      String(fieldValue || "").toLowerCase().includes(term);
+    
     switch (filterBy) {
+      case "Matricule":
+        return searchInField(e.matricule);
+      case "CIN":
+        return searchInField(e.cin);
       case "Nom":
-        return e.nom.toLowerCase().includes(term);
+        return searchInField(e.nom);
+      case "Prénom":
+        return searchInField(e.prenom);
       case "Email":
-        return e.email.toLowerCase().includes(term);
+        return searchInField(e.email);
       case "Grade":
-        return e.grade.toLowerCase().includes(term);
+        return searchInField(e.grade);
       default:
         return (
-          e.nom.toLowerCase().includes(term) ||
-          e.email.toLowerCase().includes(term) ||
-          e.grade.toLowerCase().includes(term) ||
-          e.cin.toLowerCase().includes(term)
+          searchInField(e.matricule) ||
+          searchInField(e.cin) ||
+          searchInField(e.nom) ||
+          searchInField(e.prenom) ||
+          searchInField(e.email) ||
+          searchInField(e.grade)
         );
     }
   });
@@ -276,83 +374,119 @@ function GestionEnseignants() {
     <>
       <h2 className="page-title">Gestion des enseignants</h2>
       {successMessage && <div className="success-message">{successMessage}</div>}
+      {errorMessage && <div className="success-message" style={{ background: '#e53e3e' }}>{errorMessage}</div>}
 
-      <div className="page-container">
-        <div className="search-area">
-          <select
-            className="filter-select"
-            value={filterBy}
-            onChange={(e) => setFilterBy(e.target.value)}
-          >
-            <option>Tous les champs</option>
-            <option>Nom</option>
-            <option>Email</option>
-            <option>Grade</option>
-          </select>
+      {loading ? (
+        <div className="table-card">Chargement en cours...</div>
+      ) : (
+        <>
+          <div className="page-container">
+            <div className="search-area">
+              <select
+                className="filter-select"
+                value={filterBy}
+                onChange={(e) => setFilterBy(e.target.value)}
+              >
+                <option>Tous les champs</option>
+                <option>Matricule</option>
+                <option>CIN</option>
+                <option>Nom</option>
+                <option>Prénom</option>
+                <option>Email</option>
+                <option>Grade</option>
+              </select>
+
+              <input
+                type="text"
+                placeholder="Rechercher..."
+                className="search-input"
+                value={searchTerm}
+                onChange={(e) => setSearchTerm(e.target.value)}
+              />
+            </div>
+
+            <div className="buttons-area">
+              <button onClick={handleImportClick} className="btn import-btn">
+                Importer fichier
+              </button>
+              <button
+                className="btn"
+                onClick={() => {
+                  setSelected(null);
+                  setCurrentForm(createEmptyForm());
+                  setShowForm(true);
+                }}
+              >
+                Nouvel enseignant
+              </button>
+            </div>
+          </div>
 
           <input
-            type="text"
-            placeholder="Rechercher..."
-            className="search-input"
-            value={searchTerm}
-            onChange={(e) => setSearchTerm(e.target.value)}
+            type="file"
+            accept=".csv,.json"
+            ref={fileRef}
+            style={{ display: "none" }}
+            onChange={handleImport}
           />
-        </div>
 
-        <div className="buttons-area">
-          <button onClick={handleImportClick} className="btn import-btn">
-            Importer fichier
-          </button>
-          <button
-            className="btn"
-            onClick={() => {
-              setSelected(null);
+          {/* Tableau principal */}
+          <EnseignantsTable
+            enseignants={filteredEnseignants}
+            onEdit={(e) => {
+              setSelected(e);
+              // Initialiser currentForm avec les données de l'enseignant, en s'assurant que diplome et autres champs existent
+              setCurrentForm({
+                ...e,
+                diplome: e.diplome || {
+                  idDiplome: "",
+                  libelleDiplome: "",
+                  specialite: "",
+                  universite: "",
+                  dateObtention: ""
+                },
+                // Assurer que tous les champs de contrat existent
+                typeContrat: e.typeContrat || "",
+                dateTitularisation: e.dateTitularisation || "",
+                anneeInscription: e.anneeInscription || "",
+                nbHeures: e.nbHeures || "",
+                tauxHoraire: e.tauxHoraire || "",
+                dureeContrat: e.dureeContrat || "",
+                dateDebut: e.dateDebut || "",
+                dateFin: e.dateFin || "",
+                sujetThese: e.sujetThese || "",
+                universite: e.universite || "",
+                primeRecherche: e.primeRecherche || "",
+                numeroOrdre: e.numeroOrdre || ""
+              });
               setShowForm(true);
             }}
-          >
-            Nouvel enseignant
-          </button>
-        </div>
-      </div>
+            onDelete={handleDelete}
+          />
 
-      <input
-        type="file"
-        accept=".csv,.json"
-        ref={fileRef}
-        style={{ display: "none" }}
-        onChange={handleImport}
-      />
+          <DiplomesEnseignant enseignants={filteredEnseignants} />
+          <ContratsEnseignant enseignants={filteredEnseignants} />
+        </>
+      )}
 
       {showForm && (
         <div className="modal-overlay">
           <div className="modal-content">
+            {errorMessage && <div className="success-message" style={{ background: '#e53e3e', marginBottom: '15px' }}>{errorMessage}</div>}
             <EnseignantForm
               selected={selected}
               onSubmit={handleAddOrUpdate}
               onCancel={() => {
                 setSelected(null);
+                setCurrentForm(null);
                 setShowForm(false);
+                setErrorMessage("");
               }}
+              onFormChange={setCurrentForm}
             />
           </div>
         </div>
       )}
-
-      {/* Tableau principal */}
-      <EnseignantsTable
-        enseignants={filteredEnseignants}
-        onEdit={(e) => {
-          setSelected(e);
-          setShowForm(true);
-        }}
-        onDelete={handleDelete}
-      />
-
-      {/* Tableau diplômes */}
-      <DiplomesTable enseignants={filteredEnseignants} />
-
-      {/* Tableau contrats */}
-      <ContratsTable enseignants={filteredEnseignants} />
     </>
   );
 }

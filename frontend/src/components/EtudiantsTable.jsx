@@ -16,7 +16,8 @@ function EtudiantsTable({ etudiants, onEdit, onDelete }) {
 <th>📞Téléphone</th>
 <th>🎂Naissance</th>
 <th>🏠Adresse</th>
-<th>📅Inscription</th>
+<th>🎓Licence</th>
+<th>📚Spécialité</th>
 <th>⚙️Actions</th>
 </tr>
 
@@ -34,7 +35,8 @@ function EtudiantsTable({ etudiants, onEdit, onDelete }) {
             <td>{e.numTel || '-'}</td>
             <td>{e.dateNaissance || '-'}</td>
             <td>{e.adresse || '-'}</td>
-            <td>{e.dateInscription || '-'}</td>
+            <td>{e.licence_detail ? `${e.licence_detail.nom} (${e.licence_detail.code})` : '—'}</td>
+            <td>{e.specialite_detail ? `${e.specialite_detail.nom} (${e.specialite_detail.code})` : '—'}</td>
 
             <td>
 

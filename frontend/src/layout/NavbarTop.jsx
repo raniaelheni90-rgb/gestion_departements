@@ -1,65 +1,51 @@
 import "./NavbarTop.css";
 import { useEffect, useState } from "react";
+
 function NavbarTop() {
   const [darkMode, setDarkMode] = useState(false);
+  const role = localStorage.getItem("role");
 
-useEffect(() => {
+  useEffect(() => {
+    const savedMode = localStorage.getItem("darkMode");
+    if (savedMode === "true") {
+      document.body.classList.add("dark-mode");
+      setDarkMode(true);
+    }
+  }, []);
 
-  const savedMode = localStorage.getItem("darkMode");
+  const toggleDarkMode = () => {
+    document.body.classList.toggle("dark-mode");
+    const isDark = document.body.classList.contains("dark-mode");
+    localStorage.setItem("darkMode", isDark);
+    setDarkMode(isDark);
+  };
 
-  if (savedMode === "true") {
+  const handleLogout = () => {
+    localStorage.clear();
+    window.location.reload();
+  };
 
-    document.body.classList.add("dark-mode");
+  return (
+    <div className="navbar-top">
+      <div className="navbar-left">
+        <h3 className="navbar-logo">🎓 UniManage</h3>
+      </div>
 
-    setDarkMode(true);
+      <div className="navbar-actions">
+        <span className="user">
+          {role === 'admin' ? 'Administrateur' : 'Chef de Dép.'}
+        </span>
 
-  }
+        <button className="dark-btn" onClick={toggleDarkMode} title="Mode Sombre">
+          {darkMode ? "☀️" : "🌙"}
+        </button>
 
-}, []);
-const toggleDarkMode = () => {
-
-  document.body.classList.toggle("dark-mode");
-
-  const isDark = document.body.classList.contains("dark-mode");
-
-  localStorage.setItem("darkMode", isDark);
-
-  setDarkMode(isDark);
-
-};
-return (
-
-  <div className="navbar-top">
-
-    {/* Logo and Project Name */}
-    <div className="navbar-left">
-      <h3 className="navbar-logo">🎓 UniDepart</h3>
+        <button onClick={handleLogout} className="logout-btn">
+          Déconnexion
+        </button>
+      </div>
     </div>
-
-    {/* Title Center */}
-    <h3 className="navbar-title">
-      Dashboard Administrateur
-    </h3>
-
-    {/* Right Section */}
-    <div className="navbar-actions">
-      <span className="user">
-        admin
-      </span>
-
-      <button
-        className="dark-btn"
-        onClick={toggleDarkMode}
-      >
-        {darkMode ? "☀️" : "🌙"}
-      </button>
-
-    </div>
-
-  </div>
-
-);
-
+  );
 }
 
 export default NavbarTop;

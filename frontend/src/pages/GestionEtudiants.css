@@ -197,6 +197,304 @@ BUTTON AREA
 
 }
 
+.import-btn:hover {
+
+  background: linear-gradient(135deg, #059669, #10b981);
+
+}
+
+/* BULK ASSIGN BUTTON */
+
+.bulk-assign-btn {
+
+  background: linear-gradient(135deg, #f59e0b, #fbbf24);
+
+  color: #1f2937;
+
+}
+
+.bulk-assign-btn:hover {
+
+  background: linear-gradient(135deg, #d97706, #f59e0b);
+
+}
+
+/* REASSIGN BUTTON */
+
+.reassign-btn {
+
+  background: linear-gradient(135deg, #ef4444, #f87171);
+
+}
+
+.reassign-btn:hover {
+
+  background: linear-gradient(135deg, #dc2626, #ef4444);
+
+}
+
+/* ===============================
+
+STATS CARD
+
+=============================== */
+
+.stats-card {
+
+  background: white;
+
+  border-radius: 12px;
+
+  padding: 20px;
+
+  margin-bottom: 20px;
+
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+
+  border: 1px solid #e5e7eb;
+
+}
+
+.stats-card h3 {
+
+  margin: 0 0 15px 0;
+
+  color: #102445;
+
+  font-size: 18px;
+
+  font-weight: bold;
+
+}
+
+.stats-grid {
+
+  display: grid;
+
+  grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+
+  gap: 15px;
+
+}
+
+.stat-item {
+
+  display: flex;
+
+  justify-content: space-between;
+
+  align-items: center;
+
+  padding: 10px 15px;
+
+  background: #f8fafc;
+
+  border-radius: 8px;
+
+  border: 1px solid #e2e8f0;
+
+}
+
+.stat-label {
+
+  font-weight: 500;
+
+  color: #64748b;
+
+}
+
+.stat-value {
+
+  font-weight: bold;
+
+  color: #102445;
+
+  font-size: 16px;
+
+}
+
+/* DARK MODE STATS */
+
+.dark-mode .stats-card {
+
+  background: #1f2937;
+
+  border-color: #374151;
+
+}
+
+.dark-mode .stats-card h3 {
+
+  color: white;
+
+}
+
+.dark-mode .stat-item {
+
+  background: #374151;
+
+  border-color: #4b5563;
+
+}
+
+.dark-mode .stat-label {
+
+  color: #cbd5e1;
+
+}
+
+.dark-mode .stat-value {
+
+  color: white;
+
+}
+
+/* ===============================
+
+ERROR MESSAGE
+
+=============================== */
+
+.error-message {
+
+  max-width: 100%;
+
+  margin: 0 auto 15px auto;
+
+  padding: 10px 15px;
+
+  background-color: #dc2626;
+
+  color: white;
+
+  font-weight: 500;
+
+  border-radius: 8px;
+
+  text-align: center;
+
+}
+
+/* ===============================
+
+ADD BUTTON
+
+=============================== */
+
+.btn-add {
+
+  background: linear-gradient(135deg, #2563eb, #3b82f6);
+
+  color: white;
+
+  border: none;
+
+  padding: 10px 18px;
+
+  border-radius: 8px;
+
+  font-size: 14px;
+
+  cursor: pointer;
+
+  transition: 0.3s ease;
+
+}
+
+.btn-add:hover {
+
+  transform: translateY(-2px);
+
+  background: linear-gradient(135deg, #1d4ed8, #2563eb);
+
+}
+
+/* ===============================
+
+IMPORT BUTTON
+
+=============================== */
+
+.btn-import {
+
+  background: linear-gradient(135deg, #10b981, #34d399);
+
+  color: white;
+
+  border: none;
+
+  padding: 10px 18px;
+
+  border-radius: 8px;
+
+  font-size: 14px;
+
+  cursor: pointer;
+
+  transition: 0.3s ease;
+
+  display: flex;
+
+  align-items: center;
+
+  gap: 8px;
+
+}
+
+.btn-import:hover {
+
+  transform: translateY(-2px);
+
+  background: linear-gradient(135deg, #059669, #10b981);
+
+}
+
+/* ===============================
+
+CONTROLS SECTION
+
+=============================== */
+
+.controls-section {
+
+  display: flex;
+
+  justify-content: space-between;
+
+  align-items: center;
+
+  margin-bottom: 20px;
+
+  flex-wrap: wrap;
+
+  gap: 15px;
+
+}
+
+/* ===============================
+
+FORM CONTAINER
+
+=============================== */
+
+.form-container {
+
+  margin-bottom: 20px;
+
+}
+
+/* ===============================
+
+TABLE CONTAINER
+
+=============================== */
+
+.table-container {
+
+  margin-top: 20px;
+
+}
+
 
 .import-btn:hover {
 

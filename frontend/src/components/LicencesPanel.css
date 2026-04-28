@@ -1,0 +1,334 @@
+.licences-panel {
+  margin-top: 20px;
+  border-top: 1px solid #e0e0e0;
+  padding-top: 15px;
+}
+
+.licences-toggle-btn {
+  width: 100%;
+  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+  color: white;
+  border: none;
+  padding: 12px 15px;
+  border-radius: 8px;
+  cursor: pointer;
+  font-size: 14px;
+  font-weight: 600;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  transition: all 0.3s ease;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+.licences-toggle-btn:hover {
+  background: linear-gradient(135deg, #5a6fd8 0%, #6a4190 100%);
+  transform: translateY(-1px);
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.15);
+}
+
+.arrow {
+  transition: transform 0.3s ease;
+  font-size: 12px;
+}
+
+.arrow.open {
+  transform: rotate(180deg);
+}
+
+.licences-content {
+  margin-top: 15px;
+  background: #f8f9fa;
+  border-radius: 8px;
+  padding: 15px;
+  max-height: 70vh;
+  overflow-y: auto;
+}
+
+/* Liste des licences */
+.licences-list h3 {
+  margin: 0 0 15px 0;
+  color: #333;
+  font-size: 16px;
+}
+
+.licence-item {
+  background: white;
+  border: 1px solid #e0e0e0;
+  border-radius: 6px;
+  padding: 12px;
+  margin-bottom: 8px;
+  cursor: pointer;
+  transition: all 0.2s ease;
+}
+
+.licence-item:hover {
+  border-color: #667eea;
+  box-shadow: 0 2px 8px rgba(102, 126, 234, 0.1);
+  transform: translateY(-1px);
+}
+
+.licence-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 5px;
+}
+
+.licence-header h4 {
+  margin: 0;
+  color: #333;
+  font-size: 14px;
+}
+
+.licence-code {
+  background: #667eea;
+  color: white;
+  padding: 2px 6px;
+  border-radius: 4px;
+  font-size: 12px;
+  font-weight: 600;
+}
+
+.licence-dept, .licence-duree {
+  margin: 2px 0;
+  font-size: 12px;
+  color: #666;
+}
+
+/* Détails de la licence */
+.licence-details-header {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  margin-bottom: 20px;
+  padding-bottom: 15px;
+  border-bottom: 1px solid #e0e0e0;
+}
+
+.back-btn {
+  align-self: flex-start;
+  background: #6c757d;
+  color: white;
+  border: none;
+  padding: 6px 12px;
+  border-radius: 4px;
+  cursor: pointer;
+  font-size: 12px;
+  transition: background 0.2s ease;
+}
+
+.back-btn:hover {
+  background: #5a6268;
+}
+
+.licence-details-header h3 {
+  margin: 0;
+  color: #333;
+  font-size: 18px;
+}
+
+.licence-info {
+  margin: 0;
+  color: #666;
+  font-size: 14px;
+}
+
+/* Spécialités */
+.specialites-section {
+  margin-bottom: 25px;
+}
+
+.specialites-section h4 {
+  margin: 0 0 15px 0;
+  color: #333;
+  font-size: 16px;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.specialites-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+  gap: 10px;
+}
+
+.specialite-card {
+  background: white;
+  border: 1px solid #e0e0e0;
+  border-radius: 6px;
+  padding: 12px;
+  transition: all 0.2s ease;
+}
+
+.specialite-card:hover,
+.specialite-card.active {
+  border-color: #28a745;
+  box-shadow: 0 2px 8px rgba(40, 167, 69, 0.1);
+}
+
+.filter-card {
+  cursor: pointer;
+}
+
+.specialite-card h5 {
+  margin: 0 0 5px 0;
+  color: #333;
+  font-size: 14px;
+}
+
+.specialite-code {
+  background: #28a745;
+  color: white;
+  padding: 2px 6px;
+  border-radius: 4px;
+  font-size: 11px;
+  font-weight: 600;
+  display: inline-block;
+  margin-bottom: 5px;
+}
+
+.specialite-desc {
+  margin: 0;
+  font-size: 12px;
+  color: #666;
+  line-height: 1.4;
+}
+
+/* Modules */
+.modules-section h4 {
+  margin: 0 0 15px 0;
+  color: #333;
+  font-size: 16px;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.annee-section {
+  margin-bottom: 25px;
+}
+
+.annee-section h5 {
+  margin: 0 0 15px 0;
+  color: #495057;
+  font-size: 15px;
+  padding-bottom: 5px;
+  border-bottom: 2px solid #667eea;
+}
+
+.semestres-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+  gap: 15px;
+}
+
+.semestre-card {
+  background: white;
+  border: 1px solid #e0e0e0;
+  border-radius: 6px;
+  padding: 15px;
+}
+
+.semestre-card h6 {
+  margin: 0 0 10px 0;
+  color: #495057;
+  font-size: 14px;
+  font-weight: 600;
+  text-align: center;
+  background: #f8f9fa;
+  padding: 5px;
+  border-radius: 4px;
+}
+
+.modules-list {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.module-item {
+  background: #f8f9fa;
+  border: 1px solid #e0e0e0;
+  border-radius: 4px;
+  padding: 8px;
+  transition: all 0.2s ease;
+}
+
+.module-item:hover {
+  border-color: #667eea;
+  background: #fff;
+}
+
+.module-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 4px;
+}
+
+.module-name {
+  font-weight: 600;
+  color: #333;
+  font-size: 13px;
+}
+
+.module-code {
+  background: #6c757d;
+  color: white;
+  padding: 1px 4px;
+  border-radius: 3px;
+  font-size: 10px;
+  font-weight: 600;
+}
+
+.module-details {
+  display: flex;
+  gap: 8px;
+  margin-bottom: 4px;
+}
+
+.module-type, .module-credits, .module-hours {
+  font-size: 11px;
+  color: #666;
+  background: #e9ecef;
+  padding: 1px 4px;
+  border-radius: 3px;
+}
+
+.module-specialite {
+  font-size: 11px;
+  color: #28a745;
+  font-weight: 500;
+}
+
+/* États */
+.loading {
+  text-align: center;
+  padding: 20px;
+  color: #666;
+}
+
+.no-data {
+  text-align: center;
+  padding: 15px;
+  color: #999;
+  font-style: italic;
+}
+
+/* Responsive */
+@media (max-width: 768px) {
+  .specialites-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .semestres-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .module-details {
+    flex-direction: column;
+    gap: 4px;
+  }
+}

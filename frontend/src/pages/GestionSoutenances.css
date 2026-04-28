@@ -1,0 +1,159 @@
+/* ===============================
+  GESTION SOUTENANCES SPECIFIC STYLES
+  A PREMIUM, MODERN, DYNAMIC DESIGN
+=============================== */
+
+@import url('https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700&display=swap');
+
+.soutenances-page-container {
+  font-family: 'Outfit', sans-serif;
+  padding: 24px;
+  background: radial-gradient(circle at top left, #f3f8ff, #ffffff);
+  min-height: 100vh;
+}
+
+/* Premium Title with Gradient Text */
+.soutenances-page-container .page-title {
+  text-align: left;
+  font-size: 36px;
+  font-weight: 700;
+  margin-bottom: 30px;
+  background: linear-gradient(135deg, #2e3192 0%, #1bffff 100%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+  letter-spacing: -0.5px;
+}
+
+/* Glassmorphism Top Bar */
+.soutenances-page-container .page-container {
+  background: rgba(255, 255, 255, 0.7);
+  backdrop-filter: blur(10px);
+  -webkit-backdrop-filter: blur(10px);
+  border: 1px solid rgba(255, 255, 255, 0.3);
+  padding: 20px;
+  border-radius: 16px;
+  box-shadow: 0 8px 32px rgba(31, 38, 135, 0.05);
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 30px;
+  gap: 20px;
+  flex-wrap: wrap;
+}
+
+/* Sleek Inputs */
+.soutenances-page-container .search-input,
+.soutenances-page-container .filter-select {
+  border: 1px solid #e2e8f0;
+  border-radius: 12px;
+  padding: 12px 16px;
+  font-size: 15px;
+  font-family: 'Outfit', sans-serif;
+  background-color: #f8fafc;
+  transition: all 0.3s ease;
+  box-shadow: inset 0 2px 4px rgba(0,0,0,0.02);
+}
+
+.soutenances-page-container .search-input:focus,
+.soutenances-page-container .filter-select:focus {
+  outline: none;
+  border-color: #3b82f6;
+  background-color: #ffffff;
+  box-shadow: 0 0 0 4px rgba(59, 130, 246, 0.1);
+}
+
+/* Gradient Buttons with Hover Animations */
+.soutenances-page-container .btn {
+  font-family: 'Outfit', sans-serif;
+  font-weight: 600;
+  letter-spacing: 0.5px;
+  padding: 12px 24px;
+  border-radius: 12px;
+  border: none;
+  cursor: pointer;
+  color: white;
+  background-size: 200% auto;
+  transition: 0.4s ease;
+  box-shadow: 0 4px 15px rgba(0,0,0,0.1);
+}
+
+.soutenances-page-container .btn:first-child {
+  background-image: linear-gradient(to right, #4facfe 0%, #00f2fe 51%, #4facfe 100%);
+}
+
+.soutenances-page-container .btn:nth-child(2) {
+  background-image: linear-gradient(to right, #f6d365 0%, #fda085 51%, #f6d365 100%);
+}
+
+.soutenances-page-container .import-btn {
+  background-image: linear-gradient(to right, #43e97b 0%, #38f9d7 51%, #43e97b 100%);
+}
+
+.soutenances-page-container .btn:last-child {
+  background-image: linear-gradient(to right, #6a11cb 0%, #2575fc 51%, #6a11cb 100%);
+}
+
+.soutenances-page-container .btn:hover {
+  background-position: right center;
+  transform: translateY(-3px);
+  box-shadow: 0 8px 20px rgba(0,0,0,0.15);
+}
+
+/* Beautiful Table Card */
+.soutenances-page-container .table-card {
+  background: white;
+  border-radius: 20px;
+  padding: 24px;
+  box-shadow: 0 20px 40px rgba(0,0,0,0.04);
+  border: 1px solid #f1f5f9;
+  position: relative;
+  overflow: hidden;
+}
+
+.soutenances-page-container .table-card::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 5px;
+  background: linear-gradient(90deg, #6a11cb 0%, #2575fc 100%);
+}
+
+/* Modal Styling */
+.soutenances-page-container .modal-content {
+  border-radius: 20px;
+  padding: 32px;
+  font-family: 'Outfit', sans-serif;
+  box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.25);
+  border: 1px solid rgba(255,255,255,0.2);
+}
+
+/* Dark Mode Overrides */
+.dark-mode .soutenances-page-container {
+  background: radial-gradient(circle at top left, #0f172a, #020617);
+}
+
+.dark-mode .soutenances-page-container .page-title {
+  background: linear-gradient(135deg, #60a5fa 0%, #c084fc 100%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+}
+
+.dark-mode .soutenances-page-container .page-container {
+  background: rgba(30, 41, 59, 0.7);
+  border-color: rgba(255, 255, 255, 0.05);
+}
+
+.dark-mode .soutenances-page-container .search-input,
+.dark-mode .soutenances-page-container .filter-select {
+  background-color: #0f172a;
+  border-color: #334155;
+  color: white;
+}
+
+.dark-mode .soutenances-page-container .table-card {
+  background: #1e293b;
+  border-color: #334155;
+}

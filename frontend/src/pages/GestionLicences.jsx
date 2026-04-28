@@ -1,0 +1,212 @@
+import React, { useState, useEffect, useRef } from 'react';
+import axios from 'axios';
+import LicenceForm from '../components/LicenceForm';
+import LicenceTable from '../components/LicenceTable';
+import './GestionEtudiants.css';
+
+const GestionLicences = () => {
+  const [licences, setLicences] = useState([]);
+  const [filteredLicences, setFilteredLicences] = useState([]);
+  const [departements, setDepartements] = useState([]);
+  const [searchTerm, setSearchTerm] = useState('');
+  const [filterBy, setFilterBy] = useState('Nom');
+  const [showForm, setShowForm] = useState(false);
+  const [selectedLicence, setSelectedLicence] = useState(null);
+  const [message, setMessage] = useState('');
+  const [error, setError] = useState('');
+  
+  const fileRef = useRef(null);
+
+  const fetchLicences = async () => {
+    try {
+      const response = await axios.get('/api/licences/');
+      setLicences(response.data);
+    } catch (error) {
+      console.error('Erreur lors du chargement des licences:', error);
+      setError('Erreur lors du chargement des licences: ' + (error.response?.data?.detail || error.message));
+      // Ne pas afficher d'alert, utiliser le state error à la place
+    }
+  };
+
+  const fetchDepartements = async () => {
+    try {
+      const response = await axios.get('/api/departements/');
+      setDepartements(response.data);
+    } catch (error) {
+      console.error('Erreur lors du chargement des départements:', error);
+      setError('Erreur lors du chargement des départements: ' + (error.response?.data?.detail || error.message));
+    }
+  };
+
+  useEffect(() => {
+    fetchLicences();
+    fetchDepartements();
+  }, []);
+
+  const applyFilters = () => {
+    let filtered = licences;
+
+    if (searchTerm) {
+      filtered = filtered.filter(lic => {
+        switch (filterBy) {
+          case 'Nom':
+            return lic.nom.toLowerCase().includes(searchTerm.toLowerCase());
+          case 'Code':
+            return lic.code.toLowerCase().includes(searchTerm.toLowerCase());
+          case 'Département':
+            return lic.departement_nom && lic.departement_nom.toLowerCase().includes(searchTerm.toLowerCase());
+          default:
+            return lic.nom.toLowerCase().includes(searchTerm.toLowerCase());
+        }
+      });
+    }
+
+    setFilteredLicences(filtered);
+  };
+
+  useEffect(() => {
+    applyFilters();
+  }, [licences, searchTerm, filterBy]);
+
+  const handleAdd = async (formData) => {
+    try {
+      if (selectedLicence) {
+        await axios.put(`/api/licences/${selectedLicence.id}/`, formData);
+        setMessage('Licence mise à jour avec succès !');
+        setError('');
+      } else {
+        await axios.post('/api/licences/', formData);
+        setMessage('Licence ajoutée avec succès !');
+        setError('');
+      }
+      fetchLicences();
+      setShowForm(false);
+      setSelectedLicence(null);
+    } catch (error) {
+      console.error('Erreur lors de l\'enregistrement:', error);
+      setError('Erreur lors de l\'enregistrement : ' + (error.response?.data?.error || error.message));
+      setMessage('');
+    }
+  };
+
+  const handleEdit = (lic) => {
+    setSelectedLicence(lic);
+    setShowForm(true);
+  };
+
+  const handleDelete = async (id) => {
+    if (window.confirm('Êtes-vous sûr de vouloir supprimer cette licence ?')) {
+      try {
+        await axios.delete(`/api/licences/${id}/`);
+        setMessage('Licence supprimée avec succès !');
+        setError('');
+        fetchLicences();
+      } catch (error) {
+        console.error('Erreur lors de la suppression:', error);
+        setError('Erreur lors de la suppression : ' + (error.response?.data?.error || error.message));
+        setMessage('');
+      }
+    }
+  };
+
+  const handleImportExcel = () => {
+    fileRef.current?.click();
+  };
+
+  const handleFileChange = async (event) => {
+    const file = event.target.files[0];
+    if (!file) return;
+
+    const formData = new FormData();
+    formData.append('file', file);
+
+    try {
+      const response = await axios.post('/api/licences/import-excel/', formData, {
+        headers: {
+          'Content-Type': 'multipart/form-data',
+        },
+      });
+      setMessage('Licences importées avec succès !');
+      setError('');
+      fetchLicences();
+    } catch (error) {
+      setError('Erreur lors de l\'importation : ' + (error.response?.data?.error || error.message));
+      setMessage('');
+    }
+  };
+
+  const handleCancel = () => {
+    setShowForm(false);
+    setSelectedLicence(null);
+  };
+
+  return (
+    <div className="gestion-container">
+      <h2>Gestion des Licences</h2>
+
+      <div className="controls-section">
+        <div className="search-area">
+          <div className="filter-group">
+            <label>Filtrer par:</label>
+            <select value={filterBy} onChange={(e) => setFilterBy(e.target.value)}>
+              <option value="Nom">Nom</option>
+              <option value="Code">Code</option>
+              <option value="Département">Département</option>
+            </select>
+          </div>
+          <input
+            type="text"
+            placeholder={`Rechercher par ${filterBy.toLowerCase()}`}
+            value={searchTerm}
+            onChange={(e) => setSearchTerm(e.target.value)}
+            className="search-input"
+          />
+        </div>
+
+        <button
+          className="btn btn-add"
+          onClick={() => {
+            setShowForm(!showForm);
+            if (showForm) setSelectedLicence(null);
+          }}
+        >
+          {showForm ? 'Annuler' : '+ Nouvelle Licence'}
+        </button>
+        <button className="btn btn-import" onClick={handleImportExcel}>
+          📥 Importer Excel
+        </button>
+        <input
+          type="file"
+          ref={fileRef}
+          onChange={handleFileChange}
+          accept=".xlsx,.xls"
+          style={{ display: 'none' }}
+        />
+      </div>
+
+      {message && <div className="success-message">{message}</div>}
+      {error && <div className="error-message">{error}</div>}
+
+      {showForm && (
+        <div className="form-container">
+          <LicenceForm
+            onSubmit={handleAdd}
+            selectedLicence={selectedLicence}
+            onCancel={handleCancel}
+            departements={departements}
+          />
+        </div>
+      )}
+
+      <div className="table-container">
+        <LicenceTable
+          licences={filteredLicences}
+          onEdit={handleEdit}
+          onDelete={handleDelete}
+        />
+      </div>
+    </div>
+  );
+};
+
+export default GestionLicences;

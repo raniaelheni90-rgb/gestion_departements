@@ -6,8 +6,8 @@ function JurysForm({ selected, enseignants, onSubmit, onCancel }) {
 
   useEffect(() => {
     if (selected) {
-      setTitre(selected.titre || '');
-      setSelectedEnseignants(
+      setTitre(selected.titre || '');  // eslint-disable-line react-hooks/set-state-in-effect
+      setSelectedEnseignants(  // eslint-disable-line react-hooks/set-state-in-effect
         Array.isArray(selected.enseignants)
           ? selected.enseignants
           : Array.isArray(selected.enseignants_detail)

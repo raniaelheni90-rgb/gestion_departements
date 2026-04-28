@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from "react";
 import "./EtudiantForm.css";
 
-function EtudiantForm({ selected, onSubmit, onCancel }) {
+function EtudiantForm({ selected, onSubmit, onCancel, licences = [], specialites = [] }) {
 
   const [form, setForm] = useState({
     idEtudiant: "",
@@ -12,18 +12,17 @@ function EtudiantForm({ selected, onSubmit, onCancel }) {
     numTel: "",
     dateNaissance: "",
     adresse: "",
-    dateInscription: "",
     nationalite: "",
-    passport: ""
+    passport: "",
+    licence: "",
+    specialite: "",
   });
 
-  const [successMessage, setSuccessMessage] = useState(""); // ← message succès
-
-  // eslint-disable-next-line react-hooks/set-state-in-effect
   useEffect(() => {
 
     if (selected) {
   
+      // eslint-disable-next-line react-hooks/set-state-in-effect
       setForm({
         idEtudiant: selected.idEtudiant || "",
         cin: selected.cin || "",
@@ -33,15 +32,25 @@ function EtudiantForm({ selected, onSubmit, onCancel }) {
         numTel: selected.numTel || "",
         dateNaissance: selected.dateNaissance || "",
         adresse: selected.adresse || "",
-        dateInscription: selected.dateInscription || "",
         nationalite: selected.nationalite || "",
-        passport: selected.passport || ""
+        passport: selected.passport || "",
+        licence:
+          selected.licence != null && selected.licence !== ""
+            ? String(selected.licence)
+            : selected.licence_detail?.id != null
+              ? String(selected.licence_detail.id)
+              : "",
+        specialite:
+          selected.specialite != null && selected.specialite !== ""
+            ? String(selected.specialite)
+            : selected.specialite_detail?.id != null
+              ? String(selected.specialite_detail.id)
+              : "",
       });
   
     } else {
   
       setForm({
-  
         idEtudiant: "",
         cin: "",
         nom: "",
@@ -50,10 +59,10 @@ function EtudiantForm({ selected, onSubmit, onCancel }) {
         numTel: "",
         dateNaissance: "",
         adresse: "",
-        dateInscription: "",
         nationalite: "",
-        passport: ""
-  
+        passport: "",
+        licence: "",
+        specialite: "",
       });
   
     }
@@ -76,14 +85,51 @@ function EtudiantForm({ selected, onSubmit, onCancel }) {
     nationalite: normalizeSpaces(data.nationalite),
     passport: String(data.passport || "").trim(),
     dateNaissance: String(data.dateNaissance || "").trim(),
-    dateInscription: String(data.dateInscription || "").trim()
+    licence:
+      data.licence === "" || data.licence == null || data.licence === undefined
+        ? null
+        : Number(data.licence),
+    specialite:
+      data.specialite === "" || data.specialite == null || data.specialite === undefined
+        ? null
+        : Number(data.specialite),
   });
 
   const handleChange = (e) => {
     setForm({ ...form, [e.target.name]: e.target.value });
   };
 
-  const handleSubmit = (e) => {
+  const handleLicenceChange = (e) => {
+    const v = e.target.value;
+    setForm((prev) => {
+      const next = { ...prev, licence: v };
+      if (!v) {
+        next.specialite = "";
+        return next;
+      }
+      if (prev.specialite) {
+        const spec = specialites.find((s) => String(s.id) === String(prev.specialite));
+        if (spec && String(spec.licence) !== String(v)) next.specialite = "";
+      }
+      return next;
+    });
+  };
+
+  const handleSpecialiteChange = (e) => {
+    const v = e.target.value;
+    const spec = specialites.find((s) => String(s.id) === String(v));
+    setForm((prev) => ({
+      ...prev,
+      specialite: v,
+      licence: spec ? String(spec.licence) : prev.licence,
+    }));
+  };
+
+  const specialitesFiltrees = Array.isArray(specialites)
+    ? specialites.filter((s) => !form.licence || String(s.licence) === String(form.licence))
+    : [];
+
+  const handleSubmit = async (e) => {
 
     e.preventDefault();
   
@@ -93,7 +139,6 @@ function EtudiantForm({ selected, onSubmit, onCancel }) {
     */
 
     const cleanedForm = cleanFormData(form);
-    setForm(cleanedForm);
   
   
     if (!/^[0-9]{8}$/.test(cleanedForm.cin)) {
@@ -140,6 +185,14 @@ function EtudiantForm({ selected, onSubmit, onCancel }) {
   
     }
 
+    if (cleanedForm.email && !cleanedForm.email.toLowerCase().endsWith('@gmail.com')) {
+  
+      alert("doit terminer par @gmail.com");
+  
+      return;
+  
+    }
+
     if (cleanedForm.nationalite && !/^[a-zA-ZÀ-ÿ\s-]+$/.test(cleanedForm.nationalite)) {
   
       alert("Nationalité invalide");
@@ -157,33 +210,12 @@ function EtudiantForm({ selected, onSubmit, onCancel }) {
     }
   
   
-    onSubmit(cleanedForm);
-  
-  
-    setSuccessMessage("Étudiant enregistré avec succès !");
-  
-  
-    // Reset form after successful submission
-    setForm({
-      idEtudiant: "",
-      cin: "",
-      nom: "",
-      prenom: "",
-      email: "",
-      numTel: "",
-      dateNaissance: "",
-      adresse: "",
-      dateInscription: "",
-      nationalite: "",
-      passport: ""
-    });
-  
-  
-    setTimeout(() =>
-  
-      setSuccessMessage("")
-  
-    , 3000);
+    try {
+      await onSubmit(cleanedForm);
+    } catch {
+      // Error is handled by parent
+      return;
+    }
   
   };
   return (
@@ -191,11 +223,6 @@ function EtudiantForm({ selected, onSubmit, onCancel }) {
       <h2 className="form-title">
         {selected ? "Modifier Étudiant" : "Nouvel Étudiant"}
       </h2>
-
-      {/* Message succès */}
-      {successMessage && (
-        <div className="success-message">{successMessage}</div>
-      )}
 
       <div className="form-grid">
         <div className="input-group">
@@ -267,11 +294,6 @@ required/>
         </div>
 
         <div className="input-group">
-          <label>Date inscription</label>
-          <input type="date" name="dateInscription" value={form.dateInscription} onChange={handleChange} />
-        </div>
-
-        <div className="input-group">
           <label>Nationalité</label>
           <input
 name="nationalite"
@@ -289,6 +311,30 @@ value={form.passport}
 onChange={handleChange}
 placeholder="-"
 />
+        </div>
+
+        <div className="input-group">
+          <label>Licence</label>
+          <select name="licence" value={form.licence} onChange={handleLicenceChange}>
+            <option value="">—</option>
+            {licences.map((l) => (
+              <option key={l.id} value={l.id}>
+                {l.nom} ({l.code})
+              </option>
+            ))}
+          </select>
+        </div>
+
+        <div className="input-group">
+          <label>Spécialité</label>
+          <select name="specialite" value={form.specialite} onChange={handleSpecialiteChange}>
+            <option value="">—</option>
+            {specialitesFiltrees.map((s) => (
+              <option key={s.id} value={s.id}>
+                {s.nom} ({s.code})
+              </option>
+            ))}
+          </select>
         </div>
       </div>
 

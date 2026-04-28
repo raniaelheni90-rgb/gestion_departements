@@ -2,6 +2,23 @@ import React from "react";
 import "./Table.css";
 
 function DiplomesTable({ enseignants }) {
+  if (!Array.isArray(enseignants) || enseignants.length === 0) {
+    return (
+      <>
+        <h3>Tableau des Diplômes</h3>
+        <table className="table">
+          <tbody>
+            <tr>
+              <td colSpan="6" style={{ textAlign: 'center' }}>
+                Aucun diplôme à afficher.
+              </td>
+            </tr>
+          </tbody>
+        </table>
+      </>
+    );
+  }
+
   return (
     <>
       <h3>Tableau des Diplômes</h3>
@@ -18,13 +35,13 @@ function DiplomesTable({ enseignants }) {
         </thead>
         <tbody>
           {enseignants.map((e) => (
-            <tr key={e.matricule}>
-              <td>{e.matricule}</td>
-              <td>{e.diplome?.idDiplome || "-"}</td>
-              <td>{e.diplome?.libelleDiplome || "-"}</td>
-              <td>{e.diplome?.specialite || "-"}</td>
-              <td>{e.diplome?.universite || "-"}</td>
-              <td>{e.diplome?.dateObtention || "-"}</td>
+            <tr key={e?.matricule || 'unknown'}>
+              <td>{e?.matricule || "-"}</td>
+              <td>{e?.diplome?.idDiplome || "-"}</td>
+              <td>{e?.diplome?.libelleDiplome || "-"}</td>
+              <td>{e?.diplome?.specialite || "-"}</td>
+              <td>{e?.diplome?.universite || "-"}</td>
+              <td>{e?.diplome?.dateObtention || "-"}</td>
             </tr>
           ))}
         </tbody>
